@@ -8,7 +8,7 @@ from math import exp, sqrt
 from mos2expclass import mos2exp
 
 
-def safebandstructure(expvector):
+def safebandstructure(expvector,lowminhop,highminhop):
     n= len(expvector)
     cellvector = [exp.cell for exp in expvector]
 
@@ -34,7 +34,7 @@ def safebandstructure(expvector):
     for i in range(n):
         color = colors[i]
         num_bands = bands[i].shape[1]
-        width = 1.5
+        width = 0.7
         for j in range(num_bands):
             if(j==0):
                 label = str(expvector[i].name) + "eV, " + str(expvector[i].hoppings) +" Hoppings"
@@ -51,7 +51,8 @@ def safebandstructure(expvector):
     #plt.tight_layout()
     plt.legend()
     plt.title("Band Structure of MoS2 for different E_min\n amax = bmax = %s, Cutoff-Distance d = %s A" % (amax, cutoff_distance))
-    plt.savefig("mos2exp_3.png")
+    pngname = "mos2exp_3_l_low" + str(lowminhop) + "_high" + str(highminhop) + ".png"
+    plt.savefig(pngname)
     #plt.show()
     plt.close()
 
@@ -67,7 +68,7 @@ amax= 2
 bmax = 2
 cutoff_distance = 3.5
 
-#Plotting cutoff_distance vs n_hoppings
+#Plotting n_hoppings vs minhop
 lowminhop = 0
 highminhop = 2.7
 minhops = np.linspace(lowminhop, highminhop,50)
@@ -89,8 +90,8 @@ plt.clf()
 
 
 #Bandstructures for different E_min
-lowminhop = 1
-highminhop = 1.5 #There must be at least 1 Hopping for calcbands to work
+lowminhop = 0
+highminhop = 0.05 #There must be at least 1 Hopping for calcbands to work
 minhops = np.linspace(lowminhop, highminhop,5)
 expvector = []
 
@@ -100,4 +101,4 @@ for minhop in minhops:
     print(tbexp.hoppings)
     expvector.append(tbexp)
 
-safebandstructure(expvector)
+safebandstructure(expvector,lowminhop,highminhop)
