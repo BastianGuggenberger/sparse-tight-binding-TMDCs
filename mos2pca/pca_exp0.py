@@ -1,10 +1,11 @@
 #Building Primitive Cells with Hoppings in certain Energy intervals
 #Working with the mcell class
+#Based on Custom Mos2 Class
 
 import tbplas as tb
 import numpy as np
 import math
-from mos2pcaclass import mcell, mhop, metric
+from mos2class import mcell,  metric
 import matplotlib.pyplot as plt
 
 amax = 2
@@ -13,7 +14,7 @@ cutoff_distance = 3
 #------------------------------------------------------
 #1.: Plotting e_min vs remaining hoppings
 cell_1 = mcell("cell_1")
-allhops_array = cell_1.mfindhoppings(3,2,2,0)[0]
+allhops_array = cell_1.mhoppingtable()[0]
 
 minhopa = 0.0
 minhopb = 2.5
@@ -31,7 +32,7 @@ plt.plot(minhops,nvec)
 plt.xlabel("Energy E_min in eV")
 plt.ylabel("Remaining Hoppings N / Total Hoppings")
 plt.title("Hopping Energies of Hopping Terms. \n amax = bmax = %s, cutoff-distance d = %s A" % (amax, cutoff_distance))
-plt.savefig("pca_exp0_nhoppings.png")
+plt.savefig("pca_exp0_nhoppings_newmos2class.png")
 #plt.show()
 plt.clf()
 
@@ -40,13 +41,15 @@ plt.clf()
 
 #Experimental cell 2:
 cell_2 = mcell("cell_2")
-allhops_array, labels, allhops_vector = cell_2.mfindhoppings(3,2,2,0)
+allhops_array, labels = cell_2.mhoppingtable()
 
 #Comparison Cell 3:
 cell_3 = mcell("cell_3")
-cell_3.mnewhoppings(allhops_vector)
 
 #Loop:
+minhopa = 0.0
+minhopb = 1.6
+minhops = np.linspace(minhopa,minhopb,100)
 metrics = []
 for minhop in minhops:
     filtered_array = allhops_array[abs(allhops_array[:,6])>minhop]
@@ -54,10 +57,11 @@ for minhop in minhops:
     metrics.append(metric(cell_2, cell_3))
     print(metric(cell_2,cell_3))
 
-plt.plot(minhops, metrics)
-plt.xlabel("Energy E_min in eV")
+plt.gca().invert_xaxis()
+plt.plot(nvec, metrics)
+plt.xlabel("Number N of Hoppings / Total Number of Hoppings")
 plt.ylabel("Error Metric m")
-plt.title("Error Metric m for different E_min. \n amax = bmax = %s, cutoff-distance d = %s A" % (amax, cutoff_distance))
-plt.savefig("pca_exp0_Metric.png")
+plt.title("Error Metric m for different N(E_min). \n amax = bmax = %s, cutoff-distance d = %s A" % (amax, cutoff_distance))
+plt.savefig("pca_exp0_Metric_vsN_newmos2class.png")
 #plt.show()
 plt.clf()
