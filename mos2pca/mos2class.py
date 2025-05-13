@@ -47,12 +47,16 @@ def mhoppinglist(testcell):
 
 class mcell:
     
-    def __init__(self,name):
+    def __init__(self,name,E_min):
         self.mname = name
         #Creating Primitive Cell
         self.mprimcell = tb.make_mos2_soc()
         self.mhoppings = mhoppinglist(self.mprimcell)
         self.mnhoppings = len(self.mhoppings)
+        if (E_min > 1e-9):
+            allhops_array = self.mhoppingtable()[0]
+            filtered_array = allhops_array[abs(allhops_array[:,6])> E_min]
+            self.changehops_toarr(filtered_array)
 
     #mclearhoppings deletes all hoppings of the mcell
     def mclearhoppings(self):
@@ -94,6 +98,11 @@ class mcell:
         del self.mhoppings[i]
         self.nhoppings = len(self.mhoppings)
 
+    def mchangehop_energy(self, i, e_hop):
+        self.mhoppings[i][3] = e_hop
+        hop = self.mhoppings[i]
+        self.mprimcell.remove_hopping(hop[0],hop[1],hop[2])
+        self.mprimcell.add_hopping(hop[0], hop[1], hop[2], hop[3]) #based on tbplas cell class
     
     #returns the numpy array with the informations about all hoppings in the hoppingvector
     def mhoppingtable(self):
@@ -123,7 +132,7 @@ def metric(cella, cellb):
     bands=[]
     numbands=[0,0]
     for i in range(2):
-        k_lenn, bandss = cellvector[i].calc_bands(k_path)
+        k_lenn, bandss = cellvector[i].calc_bands(k_path,echo_details=False)
         k_len.append(k_lenn)
         bands.append(bandss)
         numbands[i] = bands[i].shape[1]
@@ -135,7 +144,9 @@ def metric(cella, cellb):
     error = 0
     for i in range(numbands[0]):
         for j in range(bands[0].shape[0]):
-            error += abs(bands[0][j,i]-bands[1][j,i])
+            currenterror = abs(bands[0][j,i]-bands[1][j,i])
+            if(currenterror >= 0.1):
+                error += abs(bands[0][j,i]-bands[1][j,i])
 
     return error
 
@@ -188,8 +199,3 @@ def safebandstructure(mcellvector,filename,title):
     plt.savefig(pngname)
     #plt.show()
     plt.close()
-
-
-#-----------------------------------------------------
-#Main:
-#-----------------------------------------------------
