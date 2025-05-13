@@ -181,7 +181,7 @@ def safebandstructure(mcellvector,filename,title):
         width = 0.7
         for j in range(num_bands):
             if(j==0):
-                label = str(mcellvector[i].name) + "eV, " + str(mcellvector[i].mnhoppings) +" Hoppings"
+                label = str(mcellvector[i].mname) + " , " + str(mcellvector[i].mnhoppings) +" Hoppings"
                 plt.plot(k_len[i], bands[i][:, j], color=color, linewidth=width, label = label)
             else:
                 plt.plot(k_len[i], bands[i][:, j], color=color, linewidth=width)

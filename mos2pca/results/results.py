@@ -7,20 +7,19 @@ import sys
 import os
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(parent_dir)
-from mos2class import mcell, safebandstructure
+from mos2class import mcell, safebandstructure, metric
 
 import ast
 #-----------------------------------------------------
 
 
-ID = 3
-E_min = 0.2
+ID = 7
+E_min = 0.2 #Must be same as in pca_graddesc.py
 
 
 #IDEAL CELL:
 ideal_cell = mcell("Ideal",E_min)
 idealhops = ideal_cell.mhoppings
-
 
 #-----------------------------------------------------
 #Functions:
@@ -36,6 +35,25 @@ def xtohopvec(x):
             energy *= x[i]
             hopvec.append([rn,orb_i,orb_j,energy])
     return hopvec
+
+def safe_Nvsm_graph(N_relative,m):
+    name = "mvsN_fromlowEtohighE.txt"
+    finalxfile = open(name,"r")
+    content = []
+    for line in finalxfile:
+        content.append(line)
+    nvec = ast.literal_eval(content[0])
+    metrics = ast.literal_eval(content[1])
+
+    #Plotting:
+    plt.gca().invert_xaxis()
+    plt.plot(nvec, metrics)
+    plt.scatter(N_relative,m,color="Red")
+    plt.xlabel("Number N of Hoppings / Total Number of Hoppings")
+    plt.ylabel("Error Metric m")
+    plt.title("Error Metric m for different hopping number N.")
+    plt.savefig("graddesc_Nvsm_run"+str(ID)+".png")
+    plt.clf()
 
 
 
@@ -54,10 +72,17 @@ hopvec = xtohopvec(x)
 hopvec = [hop for hop in hopvec if abs(hop[3])>E_min]
 
 #Build the final cell:
-reducedhopcell = mcell("reducedhopcell", E_min)
+reducedhopcell = mcell("Mos2 Cell with grad-desc reduced hoppings", E_min)
 reducedhopcell.changehops_tohopvec(hopvec)
+N = reducedhopcell.mnhoppings
 
-cellvector=[ideal_cell,reducedhopcell]
+#Build the "true" cell:
+truecell = mcell("Mos2 Cell with all hoppings", 0)
+total = truecell.mnhoppings
+m = metric(truecell,reducedhopcell)
+safe_Nvsm_graph(N/total,m)
+
+cellvector=[truecell,reducedhopcell]
 filename="graddesc_bands_run"+str(ID)
-title = "Bandstructures of ideal mos2cell vs mos2cell with reduced hoppings"
+title = "Bandstructures of MoS2 cell with all hoppings vs MoS2 cell with reduced hoppings"
 safebandstructure(cellvector,filename,title)
