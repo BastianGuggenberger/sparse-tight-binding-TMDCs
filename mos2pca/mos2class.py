@@ -8,9 +8,26 @@ from math import exp, sqrt
 import io
 import sys
 
+#-----------------------------------------------------
+#Global Variables:
+
+k_points = np.array([
+        [0.0, 0.0, 0.0],    # Gamma
+        [1./2, 0.0, 0.0],   # M
+        [2./3, 1./3, 0.0],  # K
+        [0.0, 0.0, 0.0],    # Gamma
+    ])
+k_path, k_idx = tb.gen_kpath(k_points, [40, 40, 40])
+k_label = ["G", "M", "K", "G"]
+
+colors = ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffff33", "#a65628"]
+
+
+
+
 
 #-----------------------------------------------------
-#Functions:
+#Functions used for the class mcell:
 
 #mhoppinglist(): returns a list of hopping informations for all hoppings in the testcell
 def mhoppinglist(testcell):
@@ -117,24 +134,23 @@ class mcell:
         arr = np.array(vec)
         return arr, header
 
+    #Function for calculating a bandstructure, in order to make Metric more efficient
+    def calcbands(self):
+        klen, bands = self.mprimcell.calc_bands(k_path,echo_details=False)
+        return klen, bands
+
 
 #Metric for the Difference between Bandstructures of cella and cellb
-def metric(cella, cellb):
-    cellvector = [cella.mprimcell,cellb.mprimcell]
-    k_points = np.array([
-        [0.0, 0.0, 0.0],    # Gamma
-        [1./2, 0.0, 0.0],   # M
-        [2./3, 1./3, 0.0],  # K
-        [0.0, 0.0, 0.0],    # Gamma
-    ])
-    k_path, k_idx = tb.gen_kpath(k_points, [40, 40, 40])
+def metric(cella, comp_k_lenn,comp_bandss):
     k_len=[]
     bands=[]
     numbands=[0,0]
+    k_lenn, bandss = cella.mprimcell.calc_bands(k_path,echo_details=False)
+    k_len.append(k_lenn)
+    bands.append(bandss)
+    k_len.append(comp_k_lenn)
+    bands.append(comp_bandss)
     for i in range(2):
-        k_lenn, bandss = cellvector[i].calc_bands(k_path,echo_details=False)
-        k_len.append(k_lenn)
-        bands.append(bandss)
         numbands[i] = bands[i].shape[1]
 
     if(numbands[0]!=numbands[1]):
@@ -144,9 +160,9 @@ def metric(cella, cellb):
     error = 0
     for i in range(numbands[0]):
         for j in range(bands[0].shape[0]):
-            currenterror = abs(bands[0][j,i]-bands[1][j,i])
+            currenterror = (bands[0][j,i]-bands[1][j,i])**2
             if(currenterror >= 0.1):
-                error += abs(bands[0][j,i]-bands[1][j,i])
+                error += currenterror
 
     return error
 
@@ -156,14 +172,6 @@ def safebandstructure(mcellvector,filename,title):
     n= len(mcellvector)
     cellvector = [mcell.mprimcell for mcell in mcellvector]
 
-    k_points = np.array([
-        [0.0, 0.0, 0.0],    # Gamma
-        [1./2, 0.0, 0.0],   # M
-        [2./3, 1./3, 0.0],  # K
-        [0.0, 0.0, 0.0],    # Gamma
-    ])
-    k_label = ["G", "M", "K", "G"]
-    k_path, k_idx = tb.gen_kpath(k_points, [40, 40, 40])
     k_len=[]
     bands=[]
     #print(len(bands))
@@ -171,8 +179,6 @@ def safebandstructure(mcellvector,filename,title):
         k_lenn, bandss = cellvector[i].calc_bands(k_path)
         k_len.append(k_lenn)
         bands.append(bandss)
-
-    colors = ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffff33", "#a65628"]
 
     #Plotting the Bandstructure
     for i in range(n):
@@ -196,6 +202,21 @@ def safebandstructure(mcellvector,filename,title):
     plt.legend()
     plt.title(title)
     pngname = filename + ".png"
+    plt.tight_layout()
     plt.savefig(pngname)
     #plt.show()
     plt.close()
+
+
+#Get the Hopping vector from the weight vector x
+def xtohopvec(x,idealhops):
+    hopvec = []
+    for i in range(len(x)):
+        if(idealhops[i]!=0):
+            rn = idealhops[i][0]
+            orb_i = idealhops[i][1]
+            orb_j = idealhops[i][2]
+            energy = idealhops[i][3]
+            energy *= x[i]
+            hopvec.append([rn,orb_i,orb_j,energy])
+    return hopvec

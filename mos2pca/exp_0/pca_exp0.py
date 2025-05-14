@@ -45,6 +45,8 @@ allhops_array, labels = cell_2.mhoppingtable()
 
 #Comparison Cell 3:
 cell_3 = mcell("cell_3",0)
+cell_3_k_lenn, cell_3_bandss = cell_3.calcbands()
+
 
 #Loop:
 minhopa = 0.0
@@ -54,8 +56,8 @@ metrics = []
 for minhop in minhops:
     filtered_array = allhops_array[abs(allhops_array[:,6])>minhop]
     cell_2.changehops_toarr(filtered_array)
-    metrics.append(metric(cell_2, cell_3))
-    print(metric(cell_2,cell_3))
+    metrics.append(metric(cell_2, cell_3_k_lenn,cell_3_bandss))
+    print(metric(cell_2,cell_3_k_lenn,cell_3_bandss))
 
 plt.gca().invert_xaxis()
 plt.plot(nvec, metrics)
@@ -83,6 +85,8 @@ allhops_array, labels = cell_4.mhoppingtable()
 
 #Comparison Cell 3:
 cell_5 = mcell("cell_5",0)
+cell_5_k_lenn, cell_5_bandss = cell_5.calcbands()
+
 
 #Loop:
 minhopa = 0.0
@@ -92,8 +96,8 @@ metrics = []
 for minhop in minhops:
     filtered_array = allhops_array[abs(allhops_array[:,6])>minhop]
     cell_4.changehops_toarr(filtered_array)
-    metrics.append(metric(cell_4, cell_5))
-    print(metric(cell_4,cell_5))
+    metrics.append(metric(cell_4, cell_5_k_lenn, cell_5_bandss))
+    print(metric(cell_4,cell_5_k_lenn, cell_5_bandss))
 
 plt.gca().invert_xaxis()
 plt.plot(minhops, metrics)

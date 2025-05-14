@@ -7,34 +7,25 @@ import sys
 import os
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(parent_dir)
-from mos2class import mcell, safebandstructure, metric
+from mos2class import mcell, safebandstructure, metric, xtohopvec
 
 import ast
 #-----------------------------------------------------
 
 
-ID = 9
+ID = 12
 E_min = 0.2 #Must be same as in pca_graddesc.py
 
 
 #IDEAL CELL:
 ideal_cell = mcell("Ideal",E_min)
 idealhops = ideal_cell.mhoppings
+ideal_k_lenn, ideal_bandss = ideal_cell.calcbands()
+
 
 #-----------------------------------------------------
 #Functions:
 #-----------------------------------------------------
-def xtohopvec(x):
-    hopvec = []
-    for i in range(len(x)):
-        if(idealhops[i]!=0):
-            rn = idealhops[i][0]
-            orb_i = idealhops[i][1]
-            orb_j = idealhops[i][2]
-            energy = idealhops[i][3]
-            energy *= x[i]
-            hopvec.append([rn,orb_i,orb_j,energy])
-    return hopvec
 
 def safe_Nvsm_graph(N_relative,m):
     name = "mvsN_fromlowEtohighE.txt"
@@ -47,8 +38,10 @@ def safe_Nvsm_graph(N_relative,m):
 
     #Plotting:
     plt.gca().invert_xaxis()
+    plt.axhline(y=0,color='grey')
     plt.plot(nvec, metrics)
     plt.scatter(N_relative,m,color="Red")
+    plt.ylim(top=3000) #Important!
     plt.xlabel("Number N of Hoppings / Total Number of Hoppings")
     plt.ylabel("Error Metric m")
     plt.title("Error Metric m for different hopping number N.")
@@ -68,25 +61,30 @@ content = finalxfile.read()
 x = ast.literal_eval(content)
 
 #Calculating hopvec:
-hopvec = xtohopvec(x)
+hopvec = xtohopvec(x,idealhops)
 hopvec = [hop for hop in hopvec if abs(hop[3])>E_min]
 
 #Build the final cell:
-reducedhopcell = mcell("Mos2 Cell with grad-desc reduced hoppings", E_min)
+reducedhopcell = mcell("hoppings reduced by Nesterov grad-desc", E_min)
 reducedhopcell.changehops_tohopvec(hopvec)
 N = reducedhopcell.mnhoppings
 
 #Build the "true" cell:
-truecell = mcell("Mos2 Cell with all hoppings", 0)
+truecell = mcell("all hoppings", 0)
 total = truecell.mnhoppings
-m = metric(truecell,reducedhopcell)
+true_k_lenn, true_bandss = truecell.calcbands()
+
+#Plot N vs M Graph
+m = metric(reducedhopcell,true_k_lenn,true_bandss)
 safe_Nvsm_graph(N/total,m)
 
+#Plot Bandstructure Comparison
 cellvector=[truecell,reducedhopcell]
 filename="graddesc_bands_run"+str(ID)
-title = "Bandstructures of MoS2 cell with all hoppings vs MoS2 cell with reduced hoppings"
+title = "Bandstructures of MoS2 cell with all hoppings \n vs MoS2 cell with reduced hoppings, \n using Nesterov-Gradient-Descent"
 safebandstructure(cellvector,filename,title)
 
+#Plot x vector
 indices = [i for i in range(len(x))]
 plt.plot(indices,x,color = "Grey")
 plt.scatter(indices,x,color="Red")
@@ -95,3 +93,11 @@ plt.ylabel("Weight factor x[i]")
 plt.title("Weight vector x")
 plt.savefig("graddesc_xvector_run"+str(ID)+".png")
 plt.clf()
+
+#Plot hopping terms, reduced hopping Cell
+filename="graddesc_cellplot_run"+str(ID)
+reducedhopcell.mprimcell.plot(filename)
+
+#Plot hopping terms, Comparison True Cell
+#filename="graddesc_cellplot_comparison"
+#truecell.mprimcell.plot(filename

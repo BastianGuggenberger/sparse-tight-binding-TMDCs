@@ -1,0 +1,14 @@
+Errorfunction:
+
+N = sum(math.sqrt(abs(xi)) for xi in x)
+    H = sum(xi ** 6 for xi in x)
+    
+    ef = lambda_0 *metric(ideal_cell,currentcell) + lambda_1*N + lambda_2*H
+
+
+Metric:
+
+currenterror = (bands[0][j,i]-bands[1][j,i])**2
+
+
+Frun 12 is done using Nesterov Gradient descent with Gamma = 0.3
