@@ -1,3 +1,5 @@
+#Script for analyzing and plotting Results of Test runs of the Nesterov Gradient Descent PCA
+#Based on the script "pca_graddesc.py"
 
 import matplotlib.pyplot as plt
 import tbplas as tb
@@ -13,7 +15,7 @@ import ast
 #-----------------------------------------------------
 
 
-ID = 12
+ID = 20 #ID of Run to evaluate
 E_min = 0.2 #Must be same as in pca_graddesc.py
 
 
@@ -28,6 +30,7 @@ ideal_k_lenn, ideal_bandss = ideal_cell.calcbands()
 #-----------------------------------------------------
 
 def safe_Nvsm_graph(N_relative,m):
+    #Get N vs M Information of Energyreduced Cell:
     name = "mvsN_fromlowEtohighE.txt"
     finalxfile = open(name,"r")
     content = []
@@ -78,10 +81,22 @@ true_k_lenn, true_bandss = truecell.calcbands()
 m = metric(reducedhopcell,true_k_lenn,true_bandss)
 safe_Nvsm_graph(N/total,m)
 
-#Plot Bandstructure Comparison
+#Plot Bandstructure Comparison with "true" cell
 cellvector=[truecell,reducedhopcell]
 filename="graddesc_bands_run"+str(ID)
 title = "Bandstructures of MoS2 cell with all hoppings \n vs MoS2 cell with reduced hoppings, \n using Nesterov-Gradient-Descent"
+safebandstructure(cellvector,filename,title)
+
+#Plot Bandstructure Comparison with "true" and energyreduced cell
+reducedenergycell = mcell("hoppings reduced in order of Energy",0)
+allhops_array = reducedenergycell.mhoppingtable()[0]
+allhops_array = allhops_array[allhops_array[:,6].argsort()[::-1]]
+filtered_array = allhops_array[:N]
+reducedenergycell.changehops_toarr(filtered_array)
+
+cellvector=[truecell,reducedhopcell,reducedenergycell]
+filename="graddesc_bands_redE_run"+str(ID)
+title = "Bandstructures of MoS2 cell with all hoppings \n vs MoS2 cell with Nesterov-GD-reduced hoppings \n vs MoS2 cell with reduced hoppings in order of Energy"
 safebandstructure(cellvector,filename,title)
 
 #Plot x vector

@@ -2,11 +2,20 @@
 #Working with the mcell class
 #Based on Custom Mos2 Class
 
+#imports
+import sys
+import os
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(parent_dir)
+
+from mos2class import mcell, safebandstructure, metric, xtohopvec
 import tbplas as tb
 import numpy as np
 import math
-from mos2class import mcell,  metric
+import ast
 import matplotlib.pyplot as plt
+#-----------------------------------------------------
+
 
 amax = 2
 bmax = 2
@@ -61,6 +70,8 @@ for minhop in minhops:
 
 plt.gca().invert_xaxis()
 plt.plot(nvec, metrics)
+plt.ylim(top=3000) #Important!
+plt.axhline(y=0,color='grey')
 plt.xlabel("Number N of Hoppings / Total Number of Hoppings")
 plt.ylabel("Error Metric m")
 plt.title("Error Metric m for different N(E_min). \n amax = bmax = %s, cutoff-distance d = %s A" % (amax, cutoff_distance))

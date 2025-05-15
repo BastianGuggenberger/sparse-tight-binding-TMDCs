@@ -1,4 +1,5 @@
-
+#Class for adding and deleting mos2 hopping terms, with different methods
+#Based on tbplas method make_mos2_soc
 
 import numpy as np
 import tbplas as tb # Import the tbplas library

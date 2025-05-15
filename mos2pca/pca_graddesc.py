@@ -1,15 +1,19 @@
+#Script for Nesterov Gradient Descent based PCA of MoS2 Hopping Terms
+#Based on the Class "mos2class.py"
+#Based on tbplas method make_mos2_soc
+
 import math
 import numpy as np
 from mos2class import mcell, metric, xtohopvec
 import time
 
 #CONSTANTS:
-run = 13 #Increase by 1 for every run
+run = 20 #Increase by 1 for every run !!!!
 
 E_min = 0.2 #Must be same as in results.py
 
-lambda_0 = 2.5 #Weight of the metric term in the EF
-lambda_1 = 20 #Weight of the sqrt term in the EF
+lambda_0 = 1.0 #Weight of the metric term in the EF
+lambda_1 = 25 #Weight of the sqrt term in the EF
 lambda_2 = 0.05 #Weight of the power 6 term in the EF
 
 kappa = 1/1700 #Speed of Gradient Descent
