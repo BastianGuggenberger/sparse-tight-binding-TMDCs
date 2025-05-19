@@ -14,8 +14,10 @@ from mos2class import mcell, safebandstructure, metric, xtohopvec
 import ast
 #-----------------------------------------------------
 
+path_runs = "Nesterovruns/"
+path_mvsN = "Nesterovruns/mvsNanalysis/"
 
-ID = 20 #ID of Run to evaluate
+ID = 25 #ID of Run to evaluate
 E_min = 0.2 #Must be same as in pca_graddesc.py
 
 
@@ -31,7 +33,7 @@ ideal_k_lenn, ideal_bandss = ideal_cell.calcbands()
 
 def safe_Nvsm_graph(N_relative,m):
     #Get N vs M Information of Energyreduced Cell:
-    name = "mvsN_fromlowEtohighE.txt"
+    name = path_mvsN + "mvsN_fromlowEtohighE.txt"
     finalxfile = open(name,"r")
     content = []
     for line in finalxfile:
@@ -48,7 +50,7 @@ def safe_Nvsm_graph(N_relative,m):
     plt.xlabel("Number N of Hoppings / Total Number of Hoppings")
     plt.ylabel("Error Metric m")
     plt.title("Error Metric m for different hopping number N.")
-    plt.savefig("graddesc_Nvsm_run"+str(ID)+".png")
+    plt.savefig(path_runs+"graddesc_Nvsm_run"+str(ID)+".png")
     plt.clf()
 
 
@@ -58,7 +60,7 @@ def safe_Nvsm_graph(N_relative,m):
 #-----------------------------------------------------
 
 #Reading x from file
-name = "graddesc_finalx_run" + str(ID) + ".txt"
+name = path_runs + "graddesc_finalx_run" + str(ID) + ".txt"
 finalxfile = open(name,"r")
 content = finalxfile.read()
 x = ast.literal_eval(content)
@@ -83,7 +85,7 @@ safe_Nvsm_graph(N/total,m)
 
 #Plot Bandstructure Comparison with "true" cell
 cellvector=[truecell,reducedhopcell]
-filename="graddesc_bands_run"+str(ID)
+filename= path_runs + "graddesc_bands_run"+str(ID)
 title = "Bandstructures of MoS2 cell with all hoppings \n vs MoS2 cell with reduced hoppings, \n using Nesterov-Gradient-Descent"
 safebandstructure(cellvector,filename,title)
 
@@ -95,7 +97,7 @@ filtered_array = allhops_array[:N]
 reducedenergycell.changehops_toarr(filtered_array)
 
 cellvector=[truecell,reducedhopcell,reducedenergycell]
-filename="graddesc_bands_redE_run"+str(ID)
+filename=path_runs + "graddesc_bands_redE_run"+str(ID)
 title = "Bandstructures of MoS2 cell with all hoppings \n vs MoS2 cell with Nesterov-GD-reduced hoppings \n vs MoS2 cell with reduced hoppings in order of Energy"
 safebandstructure(cellvector,filename,title)
 
@@ -106,13 +108,18 @@ plt.scatter(indices,x,color="Red")
 plt.xlabel("Index i")
 plt.ylabel("Weight factor x[i]")
 plt.title("Weight vector x")
-plt.savefig("graddesc_xvector_run"+str(ID)+".png")
+plt.savefig(path_runs + "graddesc_xvector_run"+str(ID)+".png")
 plt.clf()
 
 #Plot hopping terms, reduced hopping Cell
-filename="graddesc_cellplot_run"+str(ID)
+filename=path_runs+"graddesc_cellplot_run"+str(ID)
 reducedhopcell.mprimcell.plot(filename)
 
 #Plot hopping terms, Comparison True Cell
 #filename="graddesc_cellplot_comparison"
 #truecell.mprimcell.plot(filename
+
+#write down m and N_relative
+mvsNfile = open(path_mvsN + "mvsN_run"+str(ID)+".txt", 'w+')
+mvsNfile.writelines("["+str(N/total)+","+str(m)+"]")
+mvsNfile.close()
