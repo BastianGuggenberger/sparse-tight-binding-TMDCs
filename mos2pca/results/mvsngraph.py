@@ -1,17 +1,34 @@
-#mvsngraph
+#Plots m vs N graph
+
 import numpy as np
 import matplotlib.pyplot as plt
 import ast
 
-path = "Nesterovruns/mvsNanalysis/"
+
+#-----------------------------------------------------
+#PATHS:
+
+#runspath: path were mvsN_run___.txt files are stored
+runspath = "finalruns/mvsNanalysis/"
+
+#inputpath: path were mvsN_fromlowEtohighE.txt is stored
+energyorderpath = "/home/bastian/bachelorarbeit_Projekte/Projekte/pca_mos2/ressources/mvsN_fromlowEtohighE.txt"
+
+outputpath = "finalruns/mvsNanalysis/"
+
+
+
+#-----------------------------------------------------
+#MAIN:
+
 
 Nvec = []
 mvec = []
 Nvsm=[]
-for ID in range(12,26):
+for ID in range(40,50):
     if (ID == 14):
         continue
-    name = path + "mvsN_run" + str(ID) + ".txt"
+    name = runspath + "mvsN_run" + str(ID) + ".txt"
     finalxfile = open(name,"r")
     content = finalxfile.read()
     x = ast.literal_eval(content)
@@ -25,8 +42,7 @@ Nvsm = np.array(Nvsm)
 Nvsm = Nvsm[Nvsm[:,0].argsort()]
 
 #Get N vs M Information of Energyreduced Cell:
-name = path + "mvsN_fromlowEtohighE.txt"
-finalxfile = open(name,"r")
+finalxfile = open(energyorderpath,"r")
 content = []
 for line in finalxfile:
     content.append(line)
@@ -44,5 +60,5 @@ plt.xlabel("Number N of Hoppings / Total Number of Hoppings")
 plt.ylabel("Error Metric m")
 plt.legend()
 plt.title("Error Metric m for different number N of hoppings.")
-plt.savefig(path + "Nesterov_Nvsm"+".png")
+plt.savefig(outputpath + "Nesterov_Nvsm"+".png")
 plt.clf()

@@ -1,0 +1,8 @@
+run = 9
+E_min = 0.2
+lambda_0 = 2.5
+lambda_1 = 20
+lambda_2 = 0.2
+kappa = 0.0005
+deltax = 0.1
+iterations = 500

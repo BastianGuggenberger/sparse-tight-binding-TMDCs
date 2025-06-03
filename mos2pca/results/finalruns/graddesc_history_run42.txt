@@ -1,0 +1,12 @@
+n = 0
+N(x_i ~ 0) = 0
+metric=0
+
+n = 1
+N(x_i ~ 0) = 0
+metric=0
+
+n = 2
+N(x_i ~ 0) = 0
+metric=0
+
