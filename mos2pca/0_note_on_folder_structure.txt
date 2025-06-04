@@ -1,8 +1,0 @@
-The main script is "pca_graddesc.py".
-This script is based on the class "mcell" and some functions, which are all stored in the  "mos2class.py" file.
-
-The scripts builds 4 txt files for the results. These 4 files can be analyzed in the "results" Folder, using the script "results.py".
-
-All the old runs are stored in different subfolders of the "result" Folder.
-
-The best runs, using Nesterov Gradient Descent, are stored in the Folder "Nesterovruns".

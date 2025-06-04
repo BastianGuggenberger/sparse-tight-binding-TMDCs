@@ -16,3 +16,7 @@
 	"optunaruns"
 
 40-	Final runs, Nesterov Term, **2 Metric, no mistake in hoppings, no double counted hoppings
+
+60-	Here the history file contains informations About the Degree of order
+
+100+	multilever Gradient descent

@@ -13,14 +13,32 @@ from mos2class import mcell, msafebandstructure, mmetric, mxtohopvec
 
 import ast
 #-----------------------------------------------------
+#VARIABLES (IMPORTANT):
+pathsettings = "multilevelruns"
 
-path_runs = "finalruns/"
-path_output = "finalruns/formated_results/"
-path_mvsN = "finalruns/mvsNanalysis/"
+if (pathsettings == "finalruns"):
+    path_runs = "finalruns/"
+    path_output = "finalruns/formated_results/"
+    path_fromlowEtohighEfile = "/home/bastian/bachelorarbeit_Projekte/Projekte/pca_mos2/ressources/mvsN_fromlowEtohighE.txt"
+    path_mvsN_output = "finalruns/mvsNanalysis/"
+elif (pathsettings == "multilevelruns"):
+    path_runs = "multilevelruns/"
+    path_output = "multilevelruns/formated_results/"
+    path_fromlowEtohighEfile = "/home/bastian/bachelorarbeit_Projekte/Projekte/pca_mos2/ressources/mvsN_fromlowEtohighE.txt"
+    path_mvsN_output = "multilevelruns/mvsNanalysis/"
+elif (pathsettings == "customized"):
+    path_runs = "highiterations/"
+    path_output = "highiterations/formated_results/"
+    path_fromlowEtohighEfile = "/home/bastian/bachelorarbeit_Projekte/Projekte/pca_mos2/ressources/mvsN_fromlowEtohighE.txt"
+    path_mvsN_output = "highiterations/mvsNanalysis/"
 
-ID = 40 #ID of Run to evaluate
+
+ID = 122 #ID of Run to evaluate
 E_min = 0.1 #Must be same as in pca_graddesc.py
 
+
+#-----------------------------------------------------
+#MAIN:
 
 #IDEAL CELL:
 ideal_cell = mcell("Ideal",E_min)
@@ -34,8 +52,7 @@ idealhops = ideal_cell.mhoppings
 
 def safe_Nvsm_graph(N_relative,m):
     #Get N vs M Information of Energyreduced Cell:
-    name = path_mvsN + "mvsN_fromlowEtohighE.txt"
-    finalxfile = open(name,"r")
+    finalxfile = open(path_fromlowEtohighEfile,"r")
     content = []
     for line in finalxfile:
         content.append(line)
@@ -45,12 +62,12 @@ def safe_Nvsm_graph(N_relative,m):
     #Plotting:
     plt.gca().invert_xaxis()
     plt.axhline(y=0,color='grey')
-    plt.plot(nvec, metrics)
-    plt.scatter(N_relative,m,color="Red")
-    plt.ylim(top=3000) #Important!
+    plt.plot(nvec, metrics, color = "Red", label="Hoppings reduced in the order of increasing energies")
+    plt.scatter(N_relative,m,color="Green", label="Hoppings reduced with Nesterov Gradient Descent")
+    plt.ylim(top=1200,bottom=-300) #Important!
     plt.xlabel("Number N of Hoppings / Total Number of Hoppings")
-    plt.ylabel("Error Metric m")
-    plt.title("Error Metric m for different hopping number N.")
+    plt.ylabel("Error Metric m in eV")
+    plt.title("Error Metric m for varying number N of hoppings. \n lambda_0 = ")
     plt.savefig(path_output+"graddesc_Nvsm_run"+str(ID)+".png")
     plt.clf()
 
@@ -121,7 +138,7 @@ reducedhopcell.mprimcell.plot(filename)
 #truecell.mprimcell.plot(filename
 
 #write down m and N_relative
-mvsNfile = open(path_mvsN + "mvsN_run"+str(ID)+".txt", 'w+')
+mvsNfile = open(path_mvsN_output + "mvsN_run"+str(ID)+".txt", 'w+')
 mvsNfile.writelines("["+str(N/total)+","+str(m)+"]")
 mvsNfile.close()
 

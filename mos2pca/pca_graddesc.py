@@ -10,20 +10,20 @@ from mos2class import mcell, mmetric, mxtohopvec
 import time
 
 #CONSTANTS:
-run = 41 #Increase by 1 for every run !!!!
-resultpath = "results/finalruns/" #path where the results will be stored
+run = 64 #Increase by 1 for every run !!!!
+resultpath = "results/highiterations/" #path where the results will be stored
 
 E_min = 0.1 #Must be same as in results.py
 
 #Weights: Change for different m and N results
-lambda_0 = 2.5 #Weight of the metric term in the EF
-lambda_1 = 25 #Weight of the sqrt term in the EF
+lambda_0 = 4.0 #Weight of the metric term in the EF
+lambda_1 = 0.5 #Weight of the sqrt term in the EF
 
 #Hyperparameters (keep constant):
 lambda_2 = 0.05 #Weight of the power 6 term in the EF
 kappa = 1/1700 #Speed of Gradient Descent
 deltax = 0.05 #deltax in the partial derivative
-iterations = 400 #Iterations of Gradient descent
+iterations = 1200 #Iterations of Gradient descent
 gamma = 0.3 #Factor gamma in the Nesterov acceleration
 
 
@@ -96,6 +96,9 @@ x = [1 for hop in idealhops] #weight vector x, gives the relative weight for the
 v = [0 for hop in idealhops] #velocity vector v in nesterov gradient descent
 currentcell = mcell("currentcell",E_min)
 
+orderstotal = currentcell.mget_neighbours_orders()
+orderstotal_sum = sum(orderstotal)
+
 for wdh in range(iterations):
     #start = time.time()
 
@@ -118,14 +121,15 @@ for wdh in range(iterations):
 
     resultcell = mcell("result",E_min)
     resultcell.mchangehops_tohopvec(mxtohopvec(x,idealhops.copy()))
-    N = sum(1 for i in range(len(y)) if abs(idealhops[i][3]*y[i]) <= E_min)
-
+    N_1 = sum(1 for i in range(len(y)) if ((abs(idealhops[i][3]*y[i]) <= E_min) and (currentcell.mget_neighbours_order(idealhops.copy()[i])==1)))
+    N_2 = sum(1 for i in range(len(y)) if ((abs(idealhops[i][3]*y[i]) <= E_min) and (currentcell.mget_neighbours_order(idealhops.copy()[i])==2)))
     #end = time.time()
 
     #Print iteration results:
     string = ""
     string += "n = " + str(wdh) + "\n"
-    string += "N(x_i ~ 0) = " + str(N) + "\n"
+    string += "N(x_i(1) ~ 0) = " + str(N_1) + " / " + str(orderstotal[1]) +"\n"
+    string += "N(x_i(2) ~ 0) = " + str(N_2) + " / " + str(orderstotal[2]) +"\n"
     string += "metric=" + str(mmetric(resultcell,ideal_bands)) + "\n" + "\n" #Here the less efficient, more accurate metric is calculated
     
     print(string)

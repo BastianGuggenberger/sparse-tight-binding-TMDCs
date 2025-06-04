@@ -68,3 +68,5 @@ for i in range(len(hoplist)):
     if (i != len(hoplist)-1) :
         idealhoppingfile.write("\n")
 idealhoppingfile.close()
+
+print("Succesfully stored hoppings in 'idealhops.txt'")

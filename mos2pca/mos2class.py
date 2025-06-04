@@ -33,6 +33,8 @@ k_path, k_idx = tb.gen_kpath(k_points, [40, 40, 40])
 k_path_efficient, k_idx_efficient = tb.gen_kpath(k_points, [15, 15, 15]) #kpath with less points for faster calculation
 k_label = ["G", "M", "K", "G"]
 
+dset = [0.0, 0.24, 0.32]
+
 colors = ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffff33", "#a65628"]
 
 #idealhoppingslist: list of all hoppings in R Roldán et al paper.
@@ -150,7 +152,29 @@ class mcell:
                 index = i
 
         return index
-    
+
+    #returns the degree of hop "hop"
+    def mget_neighbours_order(self, hop):
+        index =self.mget_hopping_index(hop)
+        r = self.mprimcell.dr_nm[index]
+        d = np.linalg.norm(r)
+        d = np.round(d,2)
+
+        #Categorize hopping:
+        if d not in dset:
+            print("unknown hopping distance d=", d)
+        
+        uncategorized = True
+        for i, compd in enumerate(dset):
+            if(d==compd):
+                degree = i
+                uncategorized = False
+        if(uncategorized):
+            print("Hop not categorized! d=", d)
+            return None
+        
+        return degree
+
     #analyzes the neighbours degrees of all hoppings in the cell
     def mget_neighbours_orders(self):
         hopvec = self.mhoppings.copy()

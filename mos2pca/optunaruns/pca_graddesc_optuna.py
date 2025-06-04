@@ -21,7 +21,7 @@ sys.path.append(parent_dir)
 from mos2class import mcell, safebandstructure, metric, xtohopvec
 
 #CONSTANTS:
-run = 26 #Increase by 1 for every run !!!!
+run = 27 #Increase by 1 for every run !!!!
 path = "optunaresults/" #path where the results will be stored
 storage_URL = "sqlite:///optuna_mos2.db"  #URL for the parallelization
 

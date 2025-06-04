@@ -1,8 +1,0 @@
-run = 7
-E_min = 0.2
-lambda_0 = 1.0
-lambda_1 = 25
-lambda_2 = 0.2
-kappa = 0.001
-deltax = 0.1
-iterations = 200
