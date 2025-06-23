@@ -1,0 +1,54 @@
+Information About Multilevel Runs Programs:
+
+#------------------------
+run 101:
+nesterovgd(2,400)
+nesterovgd(1,400)
+
+run 102, 111, 112:
+nesterovgd(2,200)
+nesterovgd(1,200)
+nesterovgd(2,200)
+nesterovgd(1,200)
+nesterovgd(2,200)
+nesterovgd(1,200)
+
+
+
+#------------------------
+from run 120 upwards, only the parts of the weight Vector x, that are of the current order, are punished:
+
+
+run 120:
+nesterovgd(2,400)
+nesterovgd(1,400)
+nesterovgd(2,200)
+nesterovgd(1,200)
+
+run 121:
+nesterovgd(2,600)
+nesterovgd(1,600)
+
+run 124:
+nesterovgd(1,150)
+nesterovgd(2,150)
+nesterovgd(1,150)
+nesterovgd(2,150)
+nesterovgd(1,150)
+nesterovgd(2,150)
+nesterovgd(1,150)
+nesterovgd(2,150)
+
+run 122, 123, 125, 126, +:
+nesterovgd(2,150)
+nesterovgd(1,150)
+nesterovgd(2,150)
+nesterovgd(1,150)
+nesterovgd(2,150)
+nesterovgd(1,150)
+nesterovgd(2,150)
+nesterovgd(1,150)
+
+Done:
+Todo:
+

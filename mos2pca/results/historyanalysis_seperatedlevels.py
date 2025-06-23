@@ -5,9 +5,9 @@ import numpy as np
 
 #-----------------------------------------------------
 #VARIABLES (IMPORTANT):
-path_runs = "multilevelruns/"
-path_output = "multilevelruns/formated_results/"
-ID = 112 #ID of Run to evaluate
+path_runs = "highiterations_2.0/"
+path_output = "importantresults_2.0/"
+ID = 1007 #ID of Run to evaluate
 
 #-----------------------------------------------------
 
@@ -53,9 +53,9 @@ for i in range(len(Nvector)):
 #Plot alllevel N vs m history
 plt.plot(indices,Nvector, color ="violet", label="N(x[i]~0), total")
 plt.plot(indices,mvector, color ="black", label = "metric m")
-plt.plot(indices,ratio,color="green", label = "m/N ratio")
-plt.xlabel("gd iterations")
-plt.ylabel("N(x[i]~0), metric m in eV, N/m ratio (scaled)")
+#plt.plot(indices,ratio,color="green", label = "m/N ratio")
+plt.xlabel("NGD iterations")
+plt.ylabel("N(x[i]~0), metric m in eV")
 #plt.ylim(top = 400, bottom = 0)
 plt.legend()
 
@@ -65,14 +65,14 @@ plt.clf()
 
 
 #Plot seperated level N vs m history
-plt.plot(indices,Nvector_seperated[1], color ="red", label="N(x[i]~0), Order 1")
-plt.plot(indices,Nvector_seperated[2], color ="blue", label="N(x[i]~0), Orrder 2")
-plt.plot(indices,Nvector, color ="violet", label="N(x[i]~0), total")
-plt.plot(indices,mvector, color ="black", label = "metric m")
-plt.plot(indices,ratio,color="green", label = "m/N ratio")
+plt.plot(indices,mvector, color ="black", label = "metric m",linewidth = 0.2)
+plt.plot(indices,Nvector, color ="violet", label="N(x[i]~0), total",linewidth = 0.8)
+plt.plot(indices,Nvector_seperated[1], color ="red", label="N(x[i]~0), order 1",linewidth = 1.2)
+plt.plot(indices,Nvector_seperated[2], color ="blue", label="N(x[i]~0), order 2",linewidth = 1.2)
+#plt.plot(indices,ratio,color="green", label = "m/N ratio")
 #plt.ylim(top = 400, bottom = 0)
-plt.xlabel("gd iterations")
-plt.ylabel("N(x[i]~0), metric m in eV, N/m ratio (scaled)")
+plt.xlabel("NGD iterations")
+plt.ylabel("N(x[i]~0), metric m in eV")
 plt.legend()
 
 name_Nseplevels = path_output + "historyanalysis_seperatedlevels_run" +str(ID)+ ".png"

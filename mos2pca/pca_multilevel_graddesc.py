@@ -10,14 +10,15 @@ from mos2class import mcell, mmetric, mxtohopvec
 import time
 
 #CONSTANTS:
-run = 123 #Increase by 1 for every run !!!!
-resultpath = "results/multilevelruns/" #path where the results will be stored
+runs = [1230,1231] #Increase by 1 for every run !!!!
+lambda_1_vec = [40.0,50.0] #Weights of the sqrt term in the EF
+resultpath = "results/multilevelruns_2.0/" #path where the results will be stored
 
 E_min = 0.1 #Must be same as in results.py
 
 #Weights: Change for different m and N results
 lambda_0 = 4.0 #Weight of the metric term in the EF
-lambda_1 = 6 #Weight of the sqrt term in the EF
+#lambda_1 = 50 #Weight of the sqrt term in the EF
 
 #Hyperparameters (keep constant):
 lambda_2 = 0.05 #Weight of the power 6 term in the EF
@@ -78,25 +79,6 @@ def part_deriv_EF(x,i,Efx,currentcell,order):
 #Main:
 #-----------------------------------------------------
 
-#File management
-end = str(run) + ".txt"
-historyfile = open(resultpath + "graddesc_history_run"+end, 'w+')
-xfile = open(resultpath + "graddesc_x_run"+end, 'w+')
-finalxfile = open(resultpath + "graddesc_finalx_run"+end, 'w+')
-paramsfile = open(resultpath + "graddesc_params_run"+end, 'w+')
-
-#Note parameters
-paramsfile.writelines("run = " + str(run) + "\n")
-paramsfile.writelines("E_min = " + str(E_min) + "\n")
-paramsfile.writelines("lambda_0 = " + str(lambda_0) + "\n")
-paramsfile.writelines("lambda_1 = " + str(lambda_1) + "\n")
-paramsfile.writelines("lambda_2 = " + str(lambda_2) + "\n")
-paramsfile.writelines("kappa = " + str(kappa) + "\n")
-paramsfile.writelines("deltax = " + str(deltax) + "\n")
-#paramsfile.writelines("iterations = " + str(iterations) + "\n")
-paramsfile.writelines("gamma = " + str(gamma) + "\n")
-paramsfile.close()
-
 
 #NESTEROV GRADIENT DESCENT:
 x = [1 for hop in idealhops] #weight vector x, gives the relative weight for the hopping energy of each hopping
@@ -108,6 +90,25 @@ orderstotal_sum = sum(orderstotal)
 
 #Define Nesterov Algorithm:
 def nesterovgd(order, iterations):
+    #File management
+    end = str(run) + ".txt"
+    historyfile = open(resultpath + "graddesc_history_run"+end, 'w+')
+    xfile = open(resultpath + "graddesc_x_run"+end, 'w+')
+    finalxfile = open(resultpath + "graddesc_finalx_run"+end, 'w+')
+    paramsfile = open(resultpath + "graddesc_params_run"+end, 'w+')
+
+    #Note parameters
+    paramsfile.writelines("run = " + str(run) + "\n")
+    paramsfile.writelines("E_min = " + str(E_min) + "\n")
+    paramsfile.writelines("lambda_0 = " + str(lambda_0) + "\n")
+    paramsfile.writelines("lambda_1 = " + str(lambda_1) + "\n")
+    paramsfile.writelines("lambda_2 = " + str(lambda_2) + "\n")
+    paramsfile.writelines("kappa = " + str(kappa) + "\n")
+    paramsfile.writelines("deltax = " + str(deltax) + "\n")
+    #paramsfile.writelines("iterations = " + str(iterations) + "\n")
+    paramsfile.writelines("gamma = " + str(gamma) + "\n")
+    paramsfile.close()
+
     for wdh in range(iterations):
         #start = time.time()
 
@@ -144,21 +145,26 @@ def nesterovgd(order, iterations):
         string += "N(x_i(2) ~ 0) = " + str(N_2) + " / " + str(orderstotal[2]) +"\n"
         string += "metric=" + str(mmetric(resultcell,ideal_bands)) + "\n" + "\n" #Here the less efficient, more accurate metric is calculated
         
-        print(string)
+        #print(string)
         historyfile.writelines(string)
         xfile.writelines(str(x))
 
-#Program:
-nesterovgd(2,150)
-nesterovgd(1,150)
-nesterovgd(2,150)
-nesterovgd(1,150)
-nesterovgd(2,150)
-nesterovgd(1,150)
-nesterovgd(2,150)
-nesterovgd(1,150)
+    finalxfile.writelines(str(x))
+    historyfile.close()
+    xfile.close()
+    finalxfile.close()
 
-finalxfile.writelines(str(x))
-historyfile.close()
-xfile.close()
-finalxfile.close()
+#Program:
+for i, run in enumerate(runs):
+    lambda_1 = lambda_1_vec[i]
+    print("run " + str(run) + " running with lambda_1 = "+ str(lambda_1))
+    nesterovgd(2,150)
+    nesterovgd(1,150)
+    nesterovgd(2,150)
+    nesterovgd(1,150)
+    nesterovgd(2,150)
+    nesterovgd(1,150)
+    nesterovgd(2,150)
+    nesterovgd(1,150)
+
+

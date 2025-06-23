@@ -14,7 +14,7 @@ from mos2class import mcell, msafebandstructure, mmetric, mxtohopvec
 
 #-----------------------------------------------------
 
-path_graddesc = "finalruns/graddesc_finalx_run40.txt"
+path_graddesc = "finalruns/graddesc_finalx_run61.txt"
 path_output = "finalruns/formated_results/degree_analysis/"
 
 E_min = 0.1 #Must be same as in the graddesc and svd runs
@@ -52,7 +52,7 @@ deg0 = [table[0][0],table[1][0],table[2][0]]
 deg1 = [table[0][1],table[1][1],table[2][1]]
 deg2 = [table[0][2],table[1][2],table[2][2]]
 
-data={"Hoppings Type": ["All Hoppings","E_min reduced","GradDesc reduced - "+str(N_graddesc)+ " hoppings"],"Degree 0": deg0, "Degree 1": deg1,"Degree 2": deg2,"Degree 3":[0 for x in table]}
+data={"Hoppings Type": ["original hoppings","E_min reduced","GradDesc reduced - "+str(N_graddesc)+ " hoppings"],"Degree 0": deg0, "Degree 1": deg1,"Degree 2": deg2,"Degree 3":[0 for x in table]}
 df = pd.DataFrame(data)
 output = path_output + "Neighbours_Degrees.csv"
 df.to_csv(output)

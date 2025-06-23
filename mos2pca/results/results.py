@@ -22,18 +22,18 @@ if (pathsettings == "finalruns"):
     path_fromlowEtohighEfile = "/home/bastian/bachelorarbeit_Projekte/Projekte/pca_mos2/ressources/mvsN_fromlowEtohighE.txt"
     path_mvsN_output = "finalruns/mvsNanalysis/"
 elif (pathsettings == "multilevelruns"):
-    path_runs = "multilevelruns/"
-    path_output = "multilevelruns/formated_results/"
+    path_runs = "multilevelruns_2.0/"
+    path_output = "multilevelruns_2.0/formated_results/"
     path_fromlowEtohighEfile = "/home/bastian/bachelorarbeit_Projekte/Projekte/pca_mos2/ressources/mvsN_fromlowEtohighE.txt"
-    path_mvsN_output = "multilevelruns/mvsNanalysis/"
+    path_mvsN_output = "multilevelruns_2.0/mvsNanalysis/"
 elif (pathsettings == "customized"):
-    path_runs = "highiterations/"
-    path_output = "highiterations/formated_results/"
+    path_runs = "highiterations_2.0/"
+    path_output = "highiterations_2.0/formated_results/"
     path_fromlowEtohighEfile = "/home/bastian/bachelorarbeit_Projekte/Projekte/pca_mos2/ressources/mvsN_fromlowEtohighE.txt"
-    path_mvsN_output = "highiterations/mvsNanalysis/"
+    path_mvsN_output = "highiterations_2.0/mvsNanalysis/"
 
 
-ID = 122 #ID of Run to evaluate
+IDset = range(1200,1232) #IDs of Runs to evaluate
 E_min = 0.1 #Must be same as in pca_graddesc.py
 
 
@@ -52,9 +52,9 @@ idealhops = ideal_cell.mhoppings
 
 def safe_Nvsm_graph(N_relative,m):
     #Get N vs M Information of Energyreduced Cell:
-    finalxfile = open(path_fromlowEtohighEfile,"r")
+    fromlowetohighEfile = open(path_fromlowEtohighEfile,"r")
     content = []
-    for line in finalxfile:
+    for line in fromlowetohighEfile:
         content.append(line)
     nvec = ast.literal_eval(content[0])
     metrics = ast.literal_eval(content[1])
@@ -64,7 +64,7 @@ def safe_Nvsm_graph(N_relative,m):
     plt.axhline(y=0,color='grey')
     plt.plot(nvec, metrics, color = "Red", label="Hoppings reduced in the order of increasing energies")
     plt.scatter(N_relative,m,color="Green", label="Hoppings reduced with Nesterov Gradient Descent")
-    plt.ylim(top=1200,bottom=-300) #Important!
+    plt.ylim(top=500,bottom=0) #Important!
     plt.xlabel("Number N of Hoppings / Total Number of Hoppings")
     plt.ylabel("Error Metric m in eV")
     plt.title("Error Metric m for varying number N of hoppings. \n lambda_0 = ")
@@ -77,68 +77,71 @@ def safe_Nvsm_graph(N_relative,m):
 #Main:
 #-----------------------------------------------------
 
-#Reading x from file
-name = path_runs + "graddesc_finalx_run" + str(ID) + ".txt"
-finalxfile = open(name,"r")
-content = finalxfile.read()
-x = ast.literal_eval(content)
+for ID in IDset:
 
-#Calculating hopvec:
-hopvec = mxtohopvec(x,idealhops)
-hopvec = [hop for hop in hopvec if abs(hop[3])>E_min]
+    #Reading x from file
+    name = path_runs + "graddesc_finalx_run" + str(ID) + ".txt"
+    finalxfile = open(name,"r")
+    content = finalxfile.read()
+    x = ast.literal_eval(content)
 
-#Build the final cell:
-reducedhopcell = mcell("hoppings reduced by Nesterov grad-desc", E_min)
-reducedhopcell.mchangehops_tohopvec(hopvec)
-N = reducedhopcell.mnhoppings
+    #Calculating hopvec:
+    hopvec = mxtohopvec(x,idealhops)
+    hopvec = [hop for hop in hopvec if abs(hop[3])>E_min]
 
-#Build the "true" cell:
-truecell = mcell("all hoppings", 0)
-total = truecell.mnhoppings
-true_bands = truecell.mcalcbands()
+    #Build the final cell:
+    reducedhopcell = mcell("hoppings reduced by Nesterov grad-desc", E_min)
+    reducedhopcell.mchangehops_tohopvec(hopvec)
+    N = reducedhopcell.mnhoppings
 
-#Plot N vs M Graph
-m = mmetric(reducedhopcell,true_bands)
-safe_Nvsm_graph(N/total,m)
+    #Build the "true" cell:
+    truecell = mcell("all hoppings", 0)
+    total = truecell.mnhoppings
+    true_bands = truecell.mcalcbands()
 
-#Plot Bandstructure Comparison with "true" cell
-cellvector=[truecell,reducedhopcell]
-filename= path_output + "graddesc_bands_run"+str(ID)
-title = "Bandstructures of MoS2 cell with all hoppings \n vs MoS2 cell with reduced hoppings, \n using Nesterov-Gradient-Descent"
-msafebandstructure(cellvector,filename,title)
+    #Plot N vs M Graph
+    m = mmetric(reducedhopcell,true_bands)
+    safe_Nvsm_graph(N/total,m)
 
-#Plot Bandstructure Comparison with "true" and energyreduced cell
-reducedenergycell = mcell("hoppings reduced in order of Energy",0)
-allhops_array = reducedenergycell.mhoppingtable()[0]
-allhops_array = allhops_array[allhops_array[:,6].argsort()[::-1]]
-filtered_array = allhops_array[:N]
-reducedenergycell.mchangehops_toarr(filtered_array)
+    #Plot Bandstructure Comparison with "true" cell
+    cellvector=[truecell,reducedhopcell]
+    filename= path_output + "graddesc_bands_run"+str(ID)
+    title = "Bandstructures of MoS2 cell with all hoppings \n vs MoS2 cell with reduced hoppings, \n using Nesterov-Gradient-Descent"
+    msafebandstructure(cellvector,filename,title)
 
-cellvector=[truecell,reducedhopcell,reducedenergycell]
-filename=path_output + "graddesc_bands_redE_run"+str(ID)
-title = "Bandstructures of MoS2 cell with all hoppings \n vs MoS2 cell with Nesterov-GD-reduced hoppings \n vs MoS2 cell with reduced hoppings in order of Energy"
-msafebandstructure(cellvector,filename,title)
+    #Plot Bandstructure Comparison with "true" and energyreduced cell
+    reducedenergycell = mcell("hoppings reduced in order of Energy",0)
+    allhops_array = reducedenergycell.mhoppingtable()[0]
+    allhops_array = allhops_array[allhops_array[:,6].argsort()[::-1]]
+    filtered_array = allhops_array[:N]
+    reducedenergycell.mchangehops_toarr(filtered_array)
 
-#Plot x vector
-indices = [i for i in range(len(x))]
-plt.plot(indices,x,color = "Grey")
-plt.scatter(indices,x,color="Red")
-plt.xlabel("Index i")
-plt.ylabel("Weight factor x[i]")
-plt.title("Weight vector x")
-plt.savefig(path_output + "graddesc_xvector_run"+str(ID)+".png")
-plt.clf()
+    cellvector=[truecell,reducedhopcell,reducedenergycell]
+    filename=path_output + "graddesc_bands_redE_run"+str(ID)
+    title = "Bandstructures of MoS2 cell with all hoppings \n vs MoS2 cell with Nesterov-GD-reduced hoppings \n vs MoS2 cell with reduced hoppings in order of Energy"
+    msafebandstructure(cellvector,filename,title)
 
-#Plot hopping terms, reduced hopping Cell
-filename=path_output+"graddesc_cellplot_run"+str(ID)
-reducedhopcell.mprimcell.plot(filename)
+    #Plot x vector
+    indices = [i for i in range(len(x))]
+    plt.plot(indices,x,color = "Grey")
+    plt.scatter(indices,x,color="Red")
+    plt.xlabel("Index i")
+    plt.ylabel("Weight factor x[i]")
+    plt.title("Weight vector x")
+    plt.savefig(path_output + "graddesc_xvector_run"+str(ID)+".png")
+    plt.clf()
 
-#Plot hopping terms, Comparison True Cell
-#filename="graddesc_cellplot_comparison"
-#truecell.mprimcell.plot(filename
+    #Plot hopping terms, reduced hopping Cell
+    filename=path_output+"graddesc_cellplot_run"+str(ID)
+    reducedhopcell.mprimcell.plot(filename)
 
-#write down m and N_relative
-mvsNfile = open(path_mvsN_output + "mvsN_run"+str(ID)+".txt", 'w+')
-mvsNfile.writelines("["+str(N/total)+","+str(m)+"]")
-mvsNfile.close()
+    #Plot hopping terms, Comparison True Cell
+    #filename="graddesc_cellplot_comparison"
+    #truecell.mprimcell.plot(filename
 
+    #write down m and N_relative
+    mvsNfile = open(path_mvsN_output + "mvsN_run"+str(ID)+".txt", 'w+')
+    mvsNfile.writelines("["+str(N/total)+","+str(m)+"]")
+    mvsNfile.close()
+    print("Safed results of run " + str(ID))
+print("Safed all results succesfully")

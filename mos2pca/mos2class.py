@@ -60,11 +60,14 @@ class mcell:
 
         #Creating Primitive Cell
         self.mprimcell = tb.make_mos2_soc()
+        self.mclearhoppings_start()
+        #hier sind wirklich 0 hoppings da
 
         #Changing hoppings of primitive cell to hoppings in idealhoppinglist - relevant, because make_mos2_soc() double-counts some hoppings and has imaginary parts (soc)
-        self.mhoppings = idealhoppingslist.copy()
-        self.mnhoppings = len(self.mhoppings)
+        self.mhoppings = []
+        self.mnhoppings = 0
         self.mchangehops_tohopvec(idealhoppingslist.copy())
+        self.mprimcell.update()
         
         #Filtering out hoppings with |E| < Emin
         allhops_array = self.mhoppingtable()[0]
@@ -75,9 +78,27 @@ class mcell:
     #METHODS of class mcell:
 
     #deletes all hoppings of the mcell
+    def mclearhoppings_start(self):
+        r_list = [(1,1,0),(1,0,0),(0,0,0),(0,1,0)]
+        for r in r_list:
+            for i in range(self.mnorb):
+                for j in range(self.mnorb):
+                    try: 
+                        self.mprimcell.remove_hopping(r,i,j)
+                    except:
+                        continue
+        self.mhoppings = []
+        self.mnhoppings = 0
+        self.mprimcell.update()
+
+    
     def mclearhoppings(self):
-        for i in range(self.mnhoppings):
+        n = self.mnhoppings
+        for i in range(n):
             self.mdelhop(0)
+            #print("k" + str(len(self.mprimcell._hop_ind)))
+        self.mprimcell.update()
+
     
     #clears all hoppings and adds all hoppings in newhoppingvector
     def mchangehops_tohopvec(self,newhoppingvector):
@@ -100,6 +121,7 @@ class mcell:
         addedhop = [rn, i, j, e_hop]
         self.mhoppings.append(addedhop)
         self.mnhoppings = len(self.mhoppings)
+        self.mprimcell.update()
 
     #adds all hoppings from vector "hoppings"
     def mnewhoppings(self, hoppings):
@@ -107,18 +129,22 @@ class mcell:
             self.mprimcell.add_hopping(hop[0], hop[1], hop[2], hop[3]) #based on tbplas cell class
             self.mhoppings.append(hop)
         self.mnhoppings = len(self.mhoppings)
+        self.mprimcell.update()
+
 
     #deletes hopping with index i
     def mdelhop(self,i):
         self.mprimcell.remove_hopping(self.mhoppings[i][0],self.mhoppings[i][1],self.mhoppings[i][2])
         del self.mhoppings[i]
         self.mnhoppings = len(self.mhoppings)
+        self.mprimcell.update()
 
     #changes energy of ith hopping to e_hop
     def mchangehop_energy(self, i, e_hop):
         self.mhoppings[i][3] = e_hop
         hop = self.mhoppings[i].copy()
         self.mprimcell.add_hopping(hop[0], hop[1], hop[2], hop[3]) #tbplas add_hopping can also update an existing hop
+        self.mprimcell.update()
 
     #returns the numpy array with the informations about all hoppings in the hoppingvector
     def mhoppingtable(self):
@@ -243,13 +269,64 @@ class mcell:
 
             for i in range(self.mnorb):
                 for j in range(i+1):
+                    if(i==j and R ==(0.0,0.0,0.0)): #Enforcing diagonal to be 0
+                        continue
                     Ehop = hamiltonian[i,j]
                     if(abs(Ehop)>self.mE_min):
                         newhopvec.append([R,i,j,Ehop])   
         
         self.mchangehops_tohopvec(newhopvec)  
 
+    def mseperatedsvdtruncate(self, n_components):
+        #1. Get T(R) - Matrices
+        hopvec = self.mhoppings.copy()
+        hopdict = {}
+        for hop in hopvec:
+            if(hop[0] in hopdict.keys()):
+                hopdict[hop[0]][hop[1],hop[2]] = hop[3]
+                hopdict[hop[0]][hop[2],hop[1]] = hop[3].conj()
 
+            else:
+                hopdict[hop[0]] = np.zeros((self.mnorb,self.mnorb))
+                hopdict[hop[0]][hop[1],hop[2]] = hop[3]
+                hopdict[hop[0]][hop[2],hop[1]] = hop[3].conj()
+        
+        #2. perform SVD, convert to new hopping vector
+        newhopvec = []
+        for rvec in hopdict.keys():
+            T_R = hopdict[rvec]
+            U, s, Vh = svd(T_R, full_matrices=False)
+
+            #3. Truncate
+            U = U[:, :n_components]
+            s = s[:n_components]
+            Vh = Vh[:n_components, :]
+            T_R = U @ np.diag(s) @ Vh
+
+            #Enforce Hermicity of Hamiltonian:#(Clears Imaginary part, only compatible with no SOC)
+            T_R = 0.5*(T_R + T_R.conj().T)
+
+            for i in range(self.mnorb):
+                for j in range(i+1):
+                    if(i==j and rvec ==(0.0,0.0,0.0)): #Enforcing diagonal to be 0
+                        continue
+                    Ehop = T_R[i,j]
+                    if(abs(Ehop)>self.mE_min):
+                        newhopvec.append([rvec,i,j,Ehop])
+
+        self.mchangehops_tohopvec(newhopvec)
+
+    #changes the on site energy of i-th orbital to E_new:
+    def mchangeorbeng(self,i,E_new):
+        pos = self.mprimcell.orbitals[i].position
+        labl = self.mprimcell.orbitals[i].label
+
+        self.mprimcell.set_orbital(i,pos,E_new,labl)
+        self.mprimcell.update()
+
+    def mchangeorbs(self,newonsitevec):
+        for i, energy in enumerate(newonsitevec):
+            self.mchangeorbeng(i,energy)
 
 
 #-----------------------------------------------------
@@ -299,7 +376,7 @@ def msafebandstructure(mcellvector,filename,title):
     k_len_vector=[]
     bands_vector=[]
     for i in range(n):
-        k_len, bands = cellvector[i].calc_bands(k_path)
+        k_len, bands = cellvector[i].calc_bands(k_path,echo_details=False)
         k_len_vector.append(k_len)
         bands_vector.append(bands)
 
@@ -343,3 +420,4 @@ def mxtohopvec(x,idealhops):
             energy *= x[i]
             hopvec.append([rn,orb_i,orb_j,energy])
     return hopvec
+

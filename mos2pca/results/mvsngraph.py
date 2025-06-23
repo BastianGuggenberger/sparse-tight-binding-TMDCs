@@ -14,28 +14,54 @@ runcolors = []
 
 #inputpath: path were mvsN_fromlowEtohighE.txt is stored
 energyorderpath = "/home/bastian/bachelorarbeit_Projekte/Projekte/pca_mos2/ressources/mvsN_fromlowEtohighE.txt"
-outputpath = "multilevelruns/mvsNanalysis/mvsNcomparison_102_112_andallhighiterationsruns_andallfinalruns" #without .png
+outputpath = "importantresults_2.0/mvsNcomparison_mlvsal" #without .png
 
 #-----------------------------------------------------
 #sets:
-setsize = 3 #how many different paths (sets) are added
-
+setsize = 2 #how many different paths (sets) are added
+"""
 #all paths, runs and description of the sets we want to analyze
 runpaths.append("multilevelruns/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
-runs.append([102,112])
-rundescriptions.append("Hoppings reduced with Multilevel-NGD, 1200 Iterations")
+multilevelruns = [122,123,125,126]
+for moreruns in range(127,156):
+    multilevelruns.append(moreruns)
+runs.append(multilevelruns)
+rundescriptions.append("hoppings reduced with Multilevel-NGD, 1200 Iterations")
+runcolors.append("green")
+"""
+
+runpaths.append("multilevelruns_2.0/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
+runs.append(range(1200,1232))
+rundescriptions.append("hoppings reduced with separated-orders-NGD, 1200 Iterations")
 runcolors.append("green")
 
-runpaths.append("highiterations/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
-runs.append([54,60,61,62,63])
-rundescriptions.append("Hoppings reduced with NGD, 1200 Iterations")
+"""
+runpaths.append("lowiterations_2.0/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
+runs.append(range(1100,1134))
+rundescriptions.append("hoppings reduced with NGD, 400 iterations")
+runcolors.append("grey") """
+
+runpaths.append("highiterations_2.0/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
+runs.append(range(1000,1034))
+rundescriptions.append("hoppings reduced with NGD, 1200 iterations")
 runcolors.append("blue")
 
+"""
 runpaths.append("finalruns/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
 runs.append(range(40,54))
-rundescriptions.append("Hoppings reduced with NGD, 400 Iterations")
+rundescriptions.append("hoppings reduced with NGD, 400 Iterations")
 runcolors.append("orange")
+"""
 
+
+
+"""
+runpaths.append("startzeroruns/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
+startzeroruns = range(400,409)
+runs.append(startzeroruns)
+rundescriptions.append("Hoppings reduced with NGD, 400 Iterations, x_0 = 0")
+runcolors.append("orange")
+"""
 
 #-----------------------------------------------------
 #MAIN:
@@ -77,15 +103,20 @@ metrics = ast.literal_eval(content[1])
 #Plotting:
 plt.gca().invert_xaxis()
 plt.axhline(y=0,color='grey')
-plt.plot(ns, metrics, color = "red", label="Hoppings reduced in the order of increasing energies")
+plt.plot(ns, metrics, color = "red", label="hoppings eliminated in ascending order of energy")
 
 for i, rundescription in enumerate(rundescriptions):
     plt.plot(Nvsm[i][:,0], Nvsm[i][:,1], color = runcolors[i], label=rundescription)
 
-plt.ylim(top=1200,bottom=-500) #Important!
-plt.xlabel("Number N of Hoppings / Total Number of Hoppings")
-plt.ylabel("Error Metric m in eV")
-plt.legend()
-plt.title("Error Metric m for varying number N of hoppings.")
+plt.ylim(top=500,bottom=0) #Important!
+plt.xlabel("number N of hoppings / total number of hoppings")
+plt.ylabel("error metric m in eV")
+plt.legend(
+    loc = 'upper center',
+    bbox_to_anchor = (0.5,-0.18),
+    ncol =1
+)
+plt.subplots_adjust(bottom=0.3)
+#plt.title("error metric m for different number of hoppings")
 plt.savefig(outputpath+".png")
 plt.clf()
