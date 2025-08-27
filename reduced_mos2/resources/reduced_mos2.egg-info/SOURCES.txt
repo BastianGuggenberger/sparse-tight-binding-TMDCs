@@ -1,0 +1,8 @@
+README.md
+pyproject.toml
+resources/mos2class/__init__.py
+resources/mos2class/mos2class.py
+resources/reduced_mos2.egg-info/PKG-INFO
+resources/reduced_mos2.egg-info/SOURCES.txt
+resources/reduced_mos2.egg-info/dependency_links.txt
+resources/reduced_mos2.egg-info/top_level.txt
