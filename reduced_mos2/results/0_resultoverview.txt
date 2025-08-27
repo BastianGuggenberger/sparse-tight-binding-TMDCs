@@ -1,0 +1,22 @@
+!!!All runs under 40 are based on false hops, where the imaginary part is registered as real part.
+!!!Also for These runs, the hoplist contains some hops, that are counted twice.
+
+1-9:	No Nesterov Term, abs() Metric
+	"runs_1to9"
+
+10,11:	No Nesterov Term, **2 Metric
+	"runs10_11"
+
+12-13,	Nesterov Term, **2 Metric
+15-25	"Nesterovruns"
+
+###!!!! runs 1-25 are all wrong because of ignoring j
+
+26-	Optuna parameter optimization runs, Nesterov Term, **2 Metric
+	"optunaruns"
+
+40-	Final runs, Nesterov Term, **2 Metric, no mistake in hoppings, no double counted hoppings
+
+60-	Here the history file contains informations About the Degree of order
+
+100+	multilever Gradient descent

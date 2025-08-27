@@ -1,0 +1,60 @@
+optimizing order 1
+n = 0
+N(x_i(1) ~ 0) = 0 / 152
+N(x_i(2) ~ 0) = 0 / 94
+metric=0
+
+optimizing order 1
+n = 1
+N(x_i(1) ~ 0) = 0 / 152
+N(x_i(2) ~ 0) = 0 / 94
+metric=0
+
+optimizing order 1
+n = 2
+N(x_i(1) ~ 0) = 0 / 152
+N(x_i(2) ~ 0) = 0 / 94
+metric=0
+
+optimizing order 1
+n = 3
+N(x_i(1) ~ 0) = 0 / 152
+N(x_i(2) ~ 0) = 0 / 94
+metric=0
+
+optimizing order 1
+n = 4
+N(x_i(1) ~ 0) = 0 / 152
+N(x_i(2) ~ 0) = 0 / 94
+metric=0
+
+optimizing order 1
+n = 5
+N(x_i(1) ~ 0) = 0 / 152
+N(x_i(2) ~ 0) = 0 / 94
+metric=0
+
+optimizing order 1
+n = 6
+N(x_i(1) ~ 0) = 0 / 152
+N(x_i(2) ~ 0) = 0 / 94
+metric=0
+
+optimizing order 1
+n = 7
+N(x_i(1) ~ 0) = 0 / 152
+N(x_i(2) ~ 0) = 0 / 94
+metric=0
+
+optimizing order 1
+n = 8
+N(x_i(1) ~ 0) = 0 / 152
+N(x_i(2) ~ 0) = 0 / 94
+metric=0
+
+optimizing order 1
+n = 9
+N(x_i(1) ~ 0) = 0 / 152
+N(x_i(2) ~ 0) = 0 / 94
+metric=0
+
