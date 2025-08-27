@@ -1,0 +1,176 @@
+#Script for Nesterov Gradient Descent based PCA of MoS2 Hopping Terms
+
+#MULTILEVEL_GRADDESC:
+#Minimises number of hoppings in the tight-binding model.
+#Optimises different orders of neighbourhood at different times.
+
+#Based on the Class "mos2class.py"
+#Based on tbplas method make_mos2_soc, which is an implementation of:
+    # R Roldán et al 2014 2D Mater. 1 034003
+    # https://www.tbplas.net/_api/tbplas.make_mos2_soc.html
+
+import math
+import numpy as np
+from mos2class import mcell, mmetric, mxtohopvec
+import time
+
+#CONSTANTS:
+runs = [62000] #Increase by 1 for every run !!!!
+lambda_1_vec = [3.0] #Weights of the sqrt term in the EF
+resultpath = "../results/tests/" #path where the results will be stored
+
+E_min = 0.1 #Must be same as in results.py
+
+#Weights: Change for different m and N results
+lambda_0 = 4.0 #Weight of the metric term in the EF
+#lambda_1 = 50 #Weight of the sqrt term in the EF
+
+#Hyperparameters (keep constant):
+lambda_2 = 0.05 #Weight of the power 6 term in the EF
+kappa = 1/1700 #Speed of Gradient Descent
+deltax = 0.05 #deltax in the partial derivative
+#iterations = 400 #Iterations of Gradient descent
+gamma = 0.3 #Factor gamma in the Nesterov acceleration
+
+
+#IDEAL CELL:
+ideal_cell = mcell("Ideal",E_min)
+idealhops = ideal_cell.mhoppings.copy()
+ideal_bands = ideal_cell.mcalcbands()
+ideal_bands_efficient = ideal_cell.mcalcbands(efficient=True)
+
+#get ideal orders and based on that, punished x vectors:
+ideal_orders = []
+for hop in idealhops.copy():
+    ideal_orders.append(ideal_cell.mget_neighbours_order(hop))
+
+#-----------------------------------------------------
+#Functions:
+#-----------------------------------------------------
+
+#errorfunction that should be minimized by graddesc
+# EF = lambda_0 * metric + lambda_1 * sqrt(|x|) + lambda_2 * x^6
+def EF(x,currentcell,order):
+
+    #we only want to punish the part of the weight vector x, that is actually trained at this moment
+    x_punished = [xi for xi, flag in zip(x,ideal_orders) if flag == order]
+
+    N = sum(math.sqrt(abs(xi)) for xi in x_punished)
+    H = sum(xi ** 6 for xi in x)
+    
+    metric = mmetric(currentcell,ideal_bands_efficient,efficient=True)
+    
+
+    ef = lambda_0 * metric + lambda_1*N + lambda_2*H
+
+    return ef
+
+#partial derivative of the errorfuncion, in the direction of hop i
+#calculated numerically
+def part_deriv_EF(x,i,Efx,currentcell,order):
+    xnew = x.copy()
+    xnew[i] += deltax
+    old_E = currentcell.mhoppings[i][3]
+    currentcell.mchangehop_energy(i,xnew[i]*idealhops[i][3])
+    errorfunction = EF(xnew,currentcell,order)
+    diff = (errorfunction - Efx) / deltax
+    currentcell.mchangehop_energy(i,old_E)
+
+    return diff
+
+
+
+#-----------------------------------------------------
+#Main:
+#-----------------------------------------------------
+
+
+#NESTEROV GRADIENT DESCENT:
+x = [1 for hop in idealhops] #weight vector x, gives the relative weight for the hopping energy of each hopping
+v = [0 for hop in idealhops] #velocity vector v in nesterov gradient descent
+currentcell = mcell("currentcell",E_min)
+
+orderstotal = currentcell.mget_neighbours_orders()
+orderstotal_sum = sum(orderstotal)
+
+#Define Nesterov Algorithm:
+def nesterovgd(order, iterations):
+    #File management
+    end = str(run) + ".txt"
+    historyfile = open(resultpath + "graddesc_history_run"+end, 'w+')
+    xfile = open(resultpath + "graddesc_x_run"+end, 'w+')
+    finalxfile = open(resultpath + "graddesc_finalx_run"+end, 'w+')
+    paramsfile = open(resultpath + "graddesc_params_run"+end, 'w+')
+
+    #Note parameters
+    paramsfile.writelines("run = " + str(run) + "\n")
+    paramsfile.writelines("E_min = " + str(E_min) + "\n")
+    paramsfile.writelines("lambda_0 = " + str(lambda_0) + "\n")
+    paramsfile.writelines("lambda_1 = " + str(lambda_1) + "\n")
+    paramsfile.writelines("lambda_2 = " + str(lambda_2) + "\n")
+    paramsfile.writelines("kappa = " + str(kappa) + "\n")
+    paramsfile.writelines("deltax = " + str(deltax) + "\n")
+    #paramsfile.writelines("iterations = " + str(iterations) + "\n")
+    paramsfile.writelines("gamma = " + str(gamma) + "\n")
+    paramsfile.close()
+
+    for wdh in range(iterations):
+        #start = time.time()
+
+        #1.Step Nesterov: x_tilde(t) = x(t) + gamma*v(t-1):
+        y = x.copy()
+        y = [y[i] + gamma * v[i] for i in range(len(y))]
+        
+        #2.Step Nesterov: v(t) = gamma*v(t-1) - kappa*d(EF)/dx (x_tilde(t))
+        currenthopvec = mxtohopvec(y,idealhops.copy())
+        currentcell.mchangehops_tohopvec(currenthopvec)
+        Efx = EF(y,currentcell,order)
+
+        for i in range(len(y)):
+            order_hop_i = currentcell.mget_neighbours_order(idealhops.copy()[i])
+            if(order_hop_i==order):
+                partial = part_deriv_EF(y,i,Efx,currentcell,order)
+
+                v[i] = gamma * v[i] - kappa * partial
+                #3.Step Nesterov: x(t+1) = x(t) + v(t)
+                x[i] = x[i] + v[i]
+
+
+        resultcell = mcell("result",E_min)
+        resultcell.mchangehops_tohopvec(mxtohopvec(x,idealhops.copy()))
+        N_1 = sum(1 for i in range(len(y)) if ((abs(idealhops[i][3]*y[i]) <= E_min) and (currentcell.mget_neighbours_order(idealhops.copy()[i])==1)))
+        N_2 = sum(1 for i in range(len(y)) if ((abs(idealhops[i][3]*y[i]) <= E_min) and (currentcell.mget_neighbours_order(idealhops.copy()[i])==2)))
+
+        #end = time.time()
+
+        #Print iteration results:
+        string = "optimizing order " + str(order) + "\n"
+        string += "n = " + str(wdh) + "\n"
+        string += "N(x_i(1) ~ 0) = " + str(N_1) + " / " + str(orderstotal[1]) +"\n"
+        string += "N(x_i(2) ~ 0) = " + str(N_2) + " / " + str(orderstotal[2]) +"\n"
+        string += "metric=" + str(mmetric(resultcell,ideal_bands)) + "\n" + "\n" #Here the less efficient, more accurate metric is calculated
+        
+        #print(string)
+        historyfile.writelines(string)
+        xfile.writelines(str(x))
+
+    finalxfile.writelines(str(x))
+    historyfile.close()
+    xfile.close()
+    finalxfile.close()
+
+#Program:
+for i, run in enumerate(runs):
+    lambda_1 = lambda_1_vec[i]
+    print("run " + str(run) + " running with lambda_1 = "+ str(lambda_1))
+    #nesterovgd(2,150)
+    #nesterovgd(1,150)
+    #nesterovgd(2,150)
+    #nesterovgd(1,150)
+    #nesterovgd(2,150)
+    #nesterovgd(1,150)
+    #nesterovgd(2,150)
+    #nesterovgd(1,150)
+    nesterovgd(2,10)
+    nesterovgd(1,10)
+
