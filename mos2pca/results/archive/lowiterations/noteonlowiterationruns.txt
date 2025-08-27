@@ -1,3 +1,0 @@
-The following Information is gained from the highiteration runs. The state of these runs after 400 iterations is taken.
-
-the run ID is 300 + the highiterations run id

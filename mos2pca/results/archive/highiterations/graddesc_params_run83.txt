@@ -1,9 +1,0 @@
-run = 83
-E_min = 0.1
-lambda_0 = 4.0
-lambda_1 = 21
-lambda_2 = 0.05
-kappa = 0.000588235294117647
-deltax = 0.05
-iterations = 1200
-gamma = 0.3
