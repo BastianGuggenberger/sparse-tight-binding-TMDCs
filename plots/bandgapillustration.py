@@ -1,17 +1,10 @@
-#Script for analyzing and plotting Results of Test runs of the Nesterov Gradient Descent PCA
-#Based on the script "pca_graddesc.py"
+#plots and stores the bandstructure of the original Roldán et al MOS2 model.
+#the bandgap is illustrated by plotting the bands near the bandgap in a different color.
 import numpy as np
 import matplotlib.pyplot as plt
 import tbplas as tb
+from mos2class import mcell, mmetric, mxtohopvec
 
-#import mos2class
-import sys
-import os
-parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.append(parent_dir)
-from Projekte.reduced_mos2.resources.mos2class.mos2class import mcell, mmetric, mxtohopvec
-
-import ast
 #-----------------------------------------------------
 #VARIABLES (IMPORTANT):
 
@@ -19,8 +12,6 @@ path_output = "pngs/bandgapillustration"
 
 ID = 1007 #IDs of Runs to evaluate
 E_min = 0.1 #Must be same as in pca_graddesc.py
-
-
 
 #-----------------------------------------------------
 k_points = np.array([
@@ -71,9 +62,7 @@ colors = [
 #Main:
 #-----------------------------------------------------
 def safebandstructure(cell,filename):
-    import matplotlib.pyplot as plt
     
-
     k_len, bands = cell.mprimcell.calc_bands(k_path,echo_details=False)
 
 

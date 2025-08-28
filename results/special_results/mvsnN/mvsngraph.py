@@ -13,8 +13,8 @@ runcolors = []
 #-----------------------------------------------------
 
 #inputpath: path were mvsN_fromlowEtohighE.txt is stored
-energyorderpath = "/home/bastian/bachelorarbeit_Projekte/Projekte/reduced_mos2/resources/mvsN_energyorder/mvsN_energyorder.txt"
-outputpath = "/home/bastian/bachelorarbeit_Projekte/Projekte/reduced_mos2/results/importantresults/mvsNcomparison_mlvsal" #without .png
+energyorderpath = "../../../resources/mvsN_energyorder/mvsN_energyorder.txt"
+outputpath = "../../importantresults/mvsNcomparison_mlvsal" #without .png
 
 #-----------------------------------------------------
 #sets:

@@ -13,8 +13,7 @@ svdtypes = []
 #PATHS, VARIABLES (IMPORTANT):
 #-----------------------------------------------------
 
-#inputpath: path were mvsN_fromlowEtohighE.txt is stored
-energyorderpath = "/home/bastian/bachelorarbeit_Projekte/Projekte/pca_mos2/ressources/mvsN_fromlowEtohighE.txt"
+energyorderpath = "../resources/mvsN_energyorder/mvsN_energyorder.txt"
 outputpath = "results/mvsn_svd" #without .png
 
 #-----------------------------------------------------

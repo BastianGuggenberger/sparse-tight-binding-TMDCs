@@ -2,13 +2,7 @@
 
 import matplotlib.pyplot as plt
 import tbplas as tb
-
-#import mos2class
-import sys
-import os
-parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.append(parent_dir)
-from Projekte.reduced_mos2.resources.mos2class.mos2class import mcell, msafebandstructure, mmetric, mxtohopvec
+from mos2class import mcell, msafebandstructure, mmetric, mxtohopvec
 
 import ast
 #-----------------------------------------------------
@@ -20,13 +14,14 @@ svdtype = "new"
 if(svdtype == "old"):
     path_runs = "results/oldsvd/"
     path_output = "results/oldsvd/formated_results/"
-    path_fromlowEtohighEfile = "/home/bastian/bachelorarbeit_Projekte/Projekte/pca_mos2/ressources/mvsN_fromlowEtohighE.txt"
     path_mvsN_output = "results/oldsvd/mvsNanalysis/"
 elif(svdtype == "new"):
     path_runs = "results/newsvd/"
     path_output = "results/newsvd/formated_results/"
-    path_fromlowEtohighEfile = "/home/bastian/bachelorarbeit_Projekte/Projekte/pca_mos2/ressources/mvsN_fromlowEtohighE.txt"
     path_mvsN_output = "results/newsvd/mvsNanalysis/"
+    
+path_fromlowEtohighEfile = "../resources/mvsN_energyorder/mvsN_energyorder.txt"
+
 
 #-----------------------------------------------------
 #MAIN:

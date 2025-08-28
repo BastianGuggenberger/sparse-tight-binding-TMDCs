@@ -1,15 +1,11 @@
+#plots how 1st and 2nd order hoppings look like in the primitive cell
+
 import tbplas as tb
+from mos2class import mcell, mxtohopvec
 
-#import mos2class
-import sys
-import os
-parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.append(parent_dir)
-from Projekte.reduced_mos2.resources.mos2class.mos2class import mcell, mxtohopvec
-
-import ast
 #-----------------------------------------------------
 E_min = 0.1
+#-----------------------------------------------------
 
 idealcell = mcell("ideal",E_min)
 idealhops = idealcell.mhoppings.copy()

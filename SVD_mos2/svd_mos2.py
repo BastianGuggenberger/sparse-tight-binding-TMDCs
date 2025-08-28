@@ -1,12 +1,7 @@
 #Compares the bandstructures of SVD based reduced MoS2 cell
 #iterates for different n_components
 
-#import class mcell and imports from mos2class:
-import sys
-import os
-parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.append(parent_dir)
-from Projekte.reduced_mos2.resources.mos2class.mos2class  import mcell, msafebandstructure
+from mos2class  import mcell, msafebandstructure
 
 #-----------------------------------------------------------------------
 #VARIABLES: (Important!)
@@ -17,7 +12,6 @@ E_min = 0.1
 idealcell = mcell("Ideal Cell",E_min)
 
 #Old SVD:
-
 for N in range(1,5):
     svdcell = mcell("old SVD",E_min)
     svdcell.msvdtruncate(N)
@@ -27,8 +21,7 @@ for N in range(1,5):
     finalhopfile.close()
 
 
-#Old SVD:
-
+#New SVD:
 for N in range(1,23):
     svdcell = mcell("new SVD",E_min)
     svdcell.mseperatedsvdtruncate(N)
