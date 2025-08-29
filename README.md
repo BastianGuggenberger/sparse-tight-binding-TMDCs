@@ -1,112 +1,88 @@
-# 
-The IVM(invariant masses) histograms from pp (proton-proton) collisions registered at CERNs ALICE-detector contain a so-called "combinatorial background", resulting from wrongly interpreted events which should not appear in the histogram.  
+# Dimenionality Reduction of a MoS2 tight-binding model for defects
+<figure align="center">
+  <img src="results/importantresults/graddesc_bands_run1007.png" alt="Header" width="500" />
+  <figcaption style="text-align:center;">Bandstructure of the reduced model vs original model</figcaption>
+</figure>  
 
-In this project, we analyze an IVM histogram where only pp Events with two resulting tracks are considered.  
-There are two main types of events that appear in the combinatorial background:  
-- two uncorrelated tracks can be interpreted as correlated tracks by the detecting system.  
-An IVM is then calculated based on that assumption.
-- two correlated tracks resulting from an event with 3 or 4 tracks can be wrongly interpreted as a two-track event.  
-A false IVM is then calculated from the two tracks.  
+Layered molybdenum disulfide (MoS2) structures are a well known example of transition-metal dichalcogenide (TMD) monolayers. Due to its bandgap of 1.8 eV, MoS2 - as other TMDs - has great potential in microelectronics for transistors or photodetectors.   
 
-This project aims at providing an idea of the shape of the combinatorial background, by using several methods, further described in the section "Project Structure".  
 
-# Support
-email: bastian.guggenberger@aon.at
+A common way to simulate TMD behaviour is to use tight-binding theory. While many of these tight-binding models are able to reasonably reproduce the reference band structures, the models are often computationally very expensive in their calculations. The aim of this project is to substentially reduce the number of parameters of such a model, while simultaniously keeping the calculated bandsturcture close to the original.  
 
-# Dependencies
+## Background and Acknowledgements
+This project was developed as part of my Bachelor's thesis at the Institute for Theoretical Physics (ITP) at Vienna University of Technology (TU Wien), under the supervision of Max Sinner (MSc.) and Prof. Florian Libisch.  
+This github repository showcases the technical implementation of my Bachelor's thesis.  
+The full thesis document can be found in this root folder.
 
-Mandatory:
-- **ROOT** 6.34.10 (installed via conda-forge)
-- **rapidjson** ≥ 1.1
+## Installation
+### Dependencies
 
-Optional (only for plotting / additional analysis):
-- **Python** 3.13.5 with
-  - numpy ≥ 1.26
-  - matplotlib ≥ 3.8
+- **tbplas** >= 1.6  
+TBPLaS (Tight-Binding Package for Large-scale Simulation) is used in this project for tight binding calculations. Follow the [installation guide](https://www.tbplas.net/install.html) to install TBPLaS to your system.
+- **python** ≥ 3.9  
+matplotlib, numpy
 
-Also the following files and scripts should be stored as shown (if the installation is done as described in the next section, this will by default be the case):  
-- ppHelpers.h: "Projektarbeit_SMI/projects/resources/ppHelpers/ppHelpers.h"  
-- ppBranchAssignment.h: "Projektarbeit_SMI/projects/resources/ppHelpers/ppBranchAssignment.h"  
-- ppDataItems.h: "Projektarbeit_SMI/projects/resources/ppHelpers/ppDataitems.h"  
-- ppDataitems.C: "Projektarbeit_SMI/projects/resources/ppHelpers/ppDataItems.C"  
-- ppConfig.json: "Projektarbeit_SMI/projects/resources/ppHelpers/ppConfig.json"  
-- ppPaths.h: "Projektarbeit_SMI/projects/resources/ppPaths.h"  
-- rootfiles.txt: "Projektarbeit_SMI/projects/resources/rootfiles.txt"  
-
-# Installation
-## Linux
-It is crucial that the root framework from CERN is installed.  
-In the following we will focus on the installation with conda, which is relatively easy.  
-Details on root and other installation methods can be found here: https://root.cern/install/  
+### Installation in Linux
+After installing the necessary dependencies, clone the github repository: 
 
 ```bash
-#1. clone repository:
-git clone https://github.com/BastianGuggenberger/Projektarbeit_SMI
+git clone https://github.com/BastianGuggenberger/Bachelorarbeit
+```
+Navigate to "resources/mos2class/" and set the variable "idealhoppath":  
 
-#2. navigate to project directory
-cd Projektarbeit_SMI/projects/ivm_combinatorial_background
+```python
+#-----------------------------------------------------
+#PATHS:
+idealhoppath= "-set your repository path-/Bachelorarbeit/resources/idealhoplist/idealhoplist.txt"
 
-#3. install dependencies
-conda config --set channel_priority strict
-conda create -c conda-forge --name myenvironment root
-conda activate myenvironment
-conda install -c conda-forge rapidjson
-conda install -c conda-forge numpy matplotlib
+#-----------------------------------------------------
 ```
 
-# Usage
-```bash
-#1. quickstart
-cd background_comparison
-chmod +x scaling.sh
-./scaling.sh
+## Usage
+Before running any pyhton scripts, make sure to set the right configuration variables in the script.  
 
-#2. execute scripts separately:
+For example, to run "results/results.py", set:  
+```python
+#-----------------------------------------------------
+#VARIABLES (IMPORTANT):
+pathsettings = "customized"
 
-#C++ scripts have to be compiled and run in the ROOT interpreter Cling:
-cd equalsign
-root            #start Cling
-root [0] .L equalsign.C
-root [1] equalsign()
-root [2] .q     #quit Cling
+...
 
-#python code can be run normally outside of Cling
+elif (pathsettings == "customized"):
+    path_runs = "tests/"
+    path_output = "tests/formated_results/"
+    path_mvsN_output = "tests/mvsNanalysis/"
 
-```
-    
+path_mvsN_energyorder_file = "../resources/mvsN_energyorder/mvsN_energyorder.txt"
 
-# Project Structure
+IDset = [60000] #IDs of Runs to evaluate
+E_min = 0.1 #Must be same as in pca_graddesc.py
 
-There are four different methods used to reconstruct a combinatorial background.  
-For each of theses methods, there is a seperate folder with the name "methodname", containing the file "methodname/methodname.C", where the main function "methodname()" builds the combinatorial background ivm histogram and saves it in "methodname/results/histograms/histo_methodname.root".  
+```  
 
-**Used methods:**  
-
-| Method            | Idea                                                                                  | Targeted Background Contribution      | Output File                 |
-|-------------------|----------------------------------------------------------------------------------------|---------------------------------------|-----------------------------|
-| **equalsign**     | Tracks with the same charge sign are combined as if they originated from the same event. Since such pairs never come from the same event, the histogram is a good indicator of the mixed-event background. | Mixed-event background | `equalsign/results/histo_equalsign.root` |
-| **mixedevents**   | Track pairs from *different* events are combined as if they were from the same event.  | Mixed-event background | `mixedevents/results/histo_mixedevents.root` |
-| **rotatedtracks** | The relative angle between two tracks from the same event is randomly changed, simulating artificial pairings. | Mixed-event background | `rotatedtracks/results/histo_rotatedtracks.root` |
-| **morethan2tracks** | From events with 3 or 4 tracks, only 2 are selected to compute an IVM. Simulates the misinterpretation of multi-track events as two-track events. | Multi-track contamination | `morethan2tracks/results/histo_morethan2tracks.root` |
+You will also have to set these run IDs when running the main scripts in graddesc_mos2.  
 
 
+### Project Structure
 
-## Results  
-The resulting histograms of the 4 different methods are scaled and plotted by the script "background_comparison/backgroundcomparison.C", containing two main functions:  
+- **graddesc_mos2/**
+The main scripts for performing the simplification algorithms are stored in "graddesc_mos2/". Read the [graddesc_mos2-README](graddesc_mos2/README.md) for more information.  
 
-- plotsingle(name_folder, name_file, dim_2=false):  
-plots a single histogram from the rootfile "name_folder/results/histograms/histo_name_file.root"  
+- **results/**
+The main scripts in "graddesc_mos2/" store their results in .txt format in "results/-runtype-/...". Additionaly, many scripts and plots for analysing these results can be found in this folder. For more details and an overview over the project outcome, read the [results-README](results/README.md).  
 
-- backgroundcomparison(double comparison_minimum,double comparison_maximum):  
-plots logarithmic and linear scaled histograms of the 4 combinatorial backgrounds and the original ivm distribution.  
-the scaling process fits the integrals of the 4 combinatorial backgrounds and keeps the background histograms under the original curve in the interval [comparison_minimum,comparison_maximum]  
+- **resources/**
+The main scripts in "graddesc_mos2/" depend on the class "mcell", functions and files, which are stored in the resources folder. Read the [resources-README](resources/README.md) for more information.  
 
-The backgroundcomparison(double comparison_minimum,double comparison_maximum) function is iteratively called for different comparison intervals in the script "scaling.sh".
+- **plots/**
+Plots used in the thesis, and the python scripts to obtain them are stored here. Read the [plots-README](plots/README.md) for more information.  
 
+- **SVD_mos2/**
+This folder contains the unsuccesful attempt to reduce the MoS2 tight-binding parameters with an SVD-truncation.
 
-### Example Output: Scaled Background Comparison  
-![Example comparison plot of different combinational background methods](background_comparison/results/scaledbackgroundcomparison_0.3_2.4.png)
-
+## Support
+Email: bastian.guggenberger@aon.at
 
 ## License
 This project is licensed under the MIT License – see the [LICENSE](../LICENSE.txt) file for details.
