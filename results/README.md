@@ -1,7 +1,12 @@
 # Results
-The "reduced_mos2/results" - folder contains all result files from the graddesc runs, as well as a general and several special python scripts for formating these results.
+The "reduced_mos2/results" - folder contains all result files from the graddesc runs, as well as a general and several special python scripts for formating these results.  
 
-## types of runs and folder structure  
+<figure align="center">
+  <img src="importantresults/mvsNcomparison_mlvsal.png" alt="Header" width="500" />
+  <figcaption style="text-align:center;">Performance of the NGD Algorithm for MoS2: Ratio of remaining hoppings vs error of the bandstructure calculation</figcaption>
+</figure>  
+
+## Types of runs and folder structure  
 In this project, several different settings and variations of gradient descent were experimented.  
 The result of each of these "runtypes" are each stored in a seperate folder:  
 
@@ -51,15 +56,15 @@ The general-result-formating script "reduced_mos2/results/results.py" produces t
 
 - **graddesc_bands_run1234.png:**  
 Bandstructure plot of MOS2 cell with all hoppings vs MOS2 cell with hoppings redused by the given method:  
-!["graddesc_bands_run1234.png"](graddesc_bands_run1017.png)  
+<img src="highiterations_2.0/formated_results/graddesc_bands_run1007.png" alt="graddesc_bands_run1234.png" width="350" style="margin: 20px;"/>  
 
 - **graddesc_cellplot_run1234.png:**  
 A plot of the final reduced MOS2 cell:  
-!["graddesc_cellplot_run1234.png"](graddesc_cellplot_run1017.png)
+<img src="highiterations_2.0/formated_results/graddesc_cellplot_run1007.png" alt="graddesc_cellplot_run1234.png" width="350" style="margin: 20px;"/>  
 
 - **graddesc_xvector_run1234.png:**  
 A plot of the remaining hoppings, plotted as relative coordinates (x-vector):  
-!["graddesc_cellplot_run1234.png"](graddesc_xvector_run1017.png)  
+<img src="highiterations_2.0/formated_results/graddesc_xvector_run1007.png" alt="graddesc_xvector_run1234.png" width="350" style="margin: 20px;"/>  
 
 Also the information about the metric is stored in "reduced_mos2/results/-runtype-/mvsNanalysis/mvsN_run1234.txt".  
 
@@ -69,21 +74,22 @@ The folder "reduced_mos2/results/special_results/" contains several other script
 - **mvsN/ :**  
 The scripts take the mvsN (metric vs remaining number of hoppings) information of each run from "reduced_mos2/results/-runtype-/mvsNanalysis/mvsN_run1234.txt" and stores a plot of this information in the folder "reduced_mos2/results/-runtype-/formated_results/".  
 It also plots a comparison of all mvsNs of all different methods and stores this in the "importantresults" folder.  
+<img src="importantresults/mvsNcomparison_highit_lowit_multilevel_vs_energyreduced.png" alt="mvsNcomparison_highit_lowit_multilevel_vs_energyreduced.png" width="350" style="margin: 20px;"/>  
 
 - **historyanalysis/ :**  
 The scripts produce a plot of the mvsN information of a certain run over its iterations:  
-!["historyanalysis_seperatedlevels_run1234.png"](historyanalysis_seperatedlevels_run1007.png)  
+<img src="importantresults/historyanalysis_seperatedlevels_run1007.png" alt="historyanalysis_seperatedlevels_run1007.png" width="350" style="margin: 20px;"/>  
 The plots are stored in the "importantresults" folder.  
 
 - **finalx/ :**  
 The scripts produce a plot of final x vector, seperated into degrees of order:  
-![graddesc_x_ordered1234.png](graddesc_x_ordered61.png)  
+<img src="importantresults/graddesc_x_ordered61.png" alt="graddesc_x_ordered61.png" width="350" style="margin: 20px;"/>  
 The plots are stored in the "importantresults" folder.   
 
 - **bandstructures/bandgapanalysis.py :**  
 Prints the maximum error of the reduced model near the bandgap.  
 
 - **bandstructures/bandstructures.py :**  
-Creates a clean plot of a bandstructure for evaluating the performance of the project:  
-![graddesc_bands_redE_run1234.png](graddesc_bands_redE_run1007.png)
+Creates a plot of a bandstructure comparison for evaluating the performance of the project:  
+<img src="importantresults/graddesc_bands_redE_run1007.png" alt="graddesc_bands_redE_run1007.png" width="350" style="margin: 20px;"/>  
 The plot is stored in the "importantresults" folder.   

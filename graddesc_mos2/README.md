@@ -1,5 +1,10 @@
 # Gradient Descent for reducing Hopping Terms in a MoS2 Tight Binding model
+
 The folder "graddesc_mos2" contains the main scripts of the project, where Nesterov Gradient Descent algorithms are implemented to reduce the complexity of the MoS2 tight binding model, while keeping a good estimate of the bandstructure.  
+
+<p align="center">
+  <img src="../results/importantresults/historyanalysis_seperatedlevels_run1007.png" alt="Header" width="400" style="margin: 20px;"/>
+</p>  
 
 The following variations of the algorithm are implemented:
 

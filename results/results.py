@@ -23,7 +23,7 @@ elif (pathsettings == "customized"):
     path_output = "tests/formated_results/"
     path_mvsN_output = "tests/mvsNanalysis/"
 
-path_mvsN_energyorder_file = "/home/bastian/bachelorarbeit_Projekte/Projekte/reduced_mos2/resources/mvsN_energyorder/mvsN_energyorder.txt"
+path_mvsN_energyorder_file = "../resources/mvsN_energyorder/mvsN_energyorder.txt"
 
 
 IDset = [60000] #IDs of Runs to evaluate

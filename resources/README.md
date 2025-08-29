@@ -1,7 +1,10 @@
 # Resources
-The "reduced_mos2/resources" - folder contains the following resources, essential for the project:
+The "reduced_mos2/resources" - folder is mostly based on TBPLaS calculations and contains the following resources, essential for the project:  
 
 ## mos2class
+<figure align="center">
+  <img src="../results/bandgapruns_2.0/formated_results/graddesc_cellplot_run1300.png" alt="Header" width="250" />
+</figure>   
 ""reduced_mos2/resources/mos2class/mos2class.py" is a helper script containing the class "mcell" and several useful functions.  
 
 - **Class "mcell":**  
