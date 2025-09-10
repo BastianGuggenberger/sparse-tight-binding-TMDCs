@@ -26,36 +26,36 @@ k_path_efficient, k_idx_efficient = tb.gen_kpath(k_points, [15, 15, 15]) #kpath 
 k_label = ["G", "M", "K", "G"]
 
 colors = [
-    "#e41a1c", 
-    "#377eb8", 
-    "#4daf4a", 
-    "#984ea3", 
-    "#ff7f00",  
-    "#ffff33", 
-    "#a65628",  
-    "#f781bf", #Diese
-    "#999999", 
-    "#17becf", #Diese
-    "#e41a1c", 
-    "#377eb8", 
-    "#4daf4a", 
-    "#984ea3", 
-    "#ff7f00",  
-    "#ffff33", 
-    "#a65628",  
-    "#f781bf", 
+    "#e41a1c",
+    "#377eb8",
+    "#4daf4a",
+    "#984ea3",
+    "#ff7f00",
+    "#ffff33",
+    "#a65628",
+    "#f781bf",
     "#999999", 
     "#17becf",
-    "#e41a1c", 
-    "#377eb8", 
-    "#4daf4a", 
-    "#984ea3", 
-    "#ff7f00",  
-    "#ffff33", 
-    "#a65628",  
-    "#f781bf", 
-    "#999999", 
+    "#e41a1c",
+    "#377eb8",
+    "#4daf4a",
+    "#984ea3",
+    "#ff7f00",
+    "#ffff33",
+    "#a65628",
+    "#f781bf",
+    "#999999",
     "#17becf",
+    "#e41a1c",
+    "#377eb8",
+    "#4daf4a",
+    "#984ea3",
+    "#ff7f00",
+    "#ffff33",
+    "#a65628",
+    "#f781bf",
+    "#999999",
+    "#17becf"
 ]
 
 #-----------------------------------------------------
@@ -63,10 +63,12 @@ colors = [
 #-----------------------------------------------------
 def safebandstructure(cell,filename):
     
+    #get bands
     k_len, bands = cell.mprimcell.calc_bands(k_path,echo_details=False)
 
 
     plt.figure(dpi = 200)
+
     #Plotting the Bandstructure
     num_bands = bands.shape[1]
     for j in range(num_bands):
@@ -79,7 +81,6 @@ def safebandstructure(cell,filename):
         elif(j==7):
             plt.plot(k_len, bands[:, j], color="green", linewidth="1.0", label = "MoS2 conduction bands")
 
-    #7,9
     for idx in k_idx:
         plt.axvline(k_len[idx], color='k', linewidth=1.0)
     plt.axhline(-2.0, color = "k", linewidth = 1.0, label = "E = -2.0 eV / E = 2.0 eV")

@@ -1,5 +1,5 @@
-#Plots m vs N graph
-
+#The scripts take the mvsN (metric vs remaining number of hoppings) information of each run from "reduced_mos2/results/-runtype-/mvsNanalysis/mvsN_run1234.txt" and stores a plot of this information in the folder "reduced_mos2/results/-runtype-/formated_results/".  
+#It also plots a comparison of all mvsNs of all different methods and stores this in the "importantresults" folder.
 import numpy as np
 import matplotlib.pyplot as plt
 import ast

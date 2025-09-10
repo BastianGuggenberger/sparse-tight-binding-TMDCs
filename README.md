@@ -1,8 +1,13 @@
-# Dimenionality Reduction of a MoS2 tight-binding model for defects
-<figure align="center">
+# Sparse-Tight-Binding for TMDCs: Parameter Reduction through Gradient-based Optimization
+<div align="center">
+  <br>
   <img src="results/importantresults/graddesc_bands_run1007.png" alt="Header" width="500" />
-  <figcaption style="text-align:center;">Bandstructure of the reduced model vs original model</figcaption>
-</figure>  
+  <br>
+  <em>Bandstructure of the reduced model vs original model</em>
+  <br>
+  <br>
+  <br>
+</div>
 
 Layered molybdenum disulfide (MoS2) structures are a well known example of transition-metal dichalcogenide (TMD) monolayers. Due to its bandgap of 1.8 eV, MoS2 - as other TMDs - has great potential in microelectronics for transistors or photodetectors.   
 

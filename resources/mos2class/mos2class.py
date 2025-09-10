@@ -75,7 +75,7 @@ class mcell:
     #-----------------------------------------------------
     #METHODS of class mcell:
 
-    #deletes all hoppings of the mcell
+    #makes sure that the mcell.primcell does not have any hoppings after its creation
     def mclearhoppings_start(self):
         r_list = [(1,1,0),(1,0,0),(0,0,0),(0,1,0)]
         for r in r_list:
@@ -89,7 +89,7 @@ class mcell:
         self.mnhoppings = 0
         self.mprimcell.update()
 
-    
+    #deletes all hoppings of the mcell
     def mclearhoppings(self):
         n = self.mnhoppings
         for i in range(n):
@@ -275,6 +275,7 @@ class mcell:
         
         self.mchangehops_tohopvec(newhopvec)  
 
+    #performs svd and truncation with a different method
     def mseperatedsvdtruncate(self, n_components):
         #1. Get T(R) - Matrices
         hopvec = self.mhoppings.copy()
@@ -322,6 +323,7 @@ class mcell:
         self.mprimcell.set_orbital(i,pos,E_new,labl)
         self.mprimcell.update()
 
+    #changes all on site energies to the energies in newonsitevec
     def mchangeorbs(self,newonsitevec):
         for i, energy in enumerate(newonsitevec):
             self.mchangeorbeng(i,energy)
@@ -368,6 +370,7 @@ def mmetric(cell, comparison_bands, efficient = False, weight_bandgap = 1):
 
     return error
 
+#returns the maximum error at the bandgap between the bands calculated by the reduced model and the original bands
 def mmaxerroratbandgap(cell, comparison_bands):
 
     #Calculate Bands:

@@ -43,6 +43,7 @@ idealhops = ideal_cell.mhoppings
 #Functions:
 #-----------------------------------------------------
 
+#plots the N(remaining hoppings) vs m (bs error metric) plot
 def safe_Nvsm_graph(N_relative,m):
     #Get N vs M Information of Energyreduced Cell:
     fromlowetohighEfile = open(path_mvsN_energyorder_file,"r")

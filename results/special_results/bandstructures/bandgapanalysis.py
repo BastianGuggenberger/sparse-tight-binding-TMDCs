@@ -1,3 +1,5 @@
+#Prints the maximum error of the reduced model near the bandgap.
+
 import matplotlib.pyplot as plt
 import tbplas as tb
 from mos2class import mcell, msafebandstructure, mmetric, mxtohopvec, mmaxerroratbandgap

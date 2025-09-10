@@ -15,8 +15,8 @@ outputpath = "idealhoplist_multilevel.txt"
 
 #The following code largely corresponds to the method "mgetneighboursorders" of class mcell.
 
+#get all roldan hoppings
 idealcell = mcell("Ideal Cell", 0)
-
 hopvec = idealcell.mhoppings.copy()
 
 dset = [0.0, 0.24, 0.32]
@@ -29,6 +29,7 @@ for hop in hopvec:
     d = np.round(d,2)
 
     #Categorize hopping:
+    
     if d not in dset:
         print("unknown hopping distance d=", d)
     

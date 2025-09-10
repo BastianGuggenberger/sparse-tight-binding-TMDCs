@@ -1,5 +1,5 @@
-#Script for analyzing and plotting Results of Test runs of the Nesterov Gradient Descent PCA
-#Based on the script "pca_graddesc.py"
+#Creates a plot of a bandstructure comparison for evaluating the performance of the project
+
 import numpy as np
 import matplotlib.pyplot as plt
 import tbplas as tb

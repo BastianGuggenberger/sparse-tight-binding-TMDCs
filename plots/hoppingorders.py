@@ -23,3 +23,6 @@ idealcell.mprimcell.plot(fig_name = "pngs/order1hops.png",hop_color = "red")
 
 idealcell.mchangehops_tohopvec(order_2hops)
 idealcell.mprimcell.plot(fig_name = "pngs/order2hops.png",hop_color = "blue")
+
+idealcell.mchangehops_tohopvec(idealhops)
+idealcell.mprimcell.plot(fig_name = "pngs/allhops.png", hop_color = "orange")
