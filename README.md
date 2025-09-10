@@ -31,14 +31,14 @@ matplotlib, numpy
 After installing the necessary dependencies, clone the github repository: 
 
 ```bash
-git clone https://github.com/BastianGuggenberger/Bachelorarbeit
+git clone https://github.com/BastianGuggenberger/sparse-tight-binding-TMDCs
 ```
 Navigate to "resources/mos2class/" and set the variable "idealhoppath":  
 
 ```python
 #-----------------------------------------------------
 #PATHS:
-idealhoppath= "-set your repository path-/Bachelorarbeit/resources/idealhoplist/idealhoplist.txt"
+idealhoppath= "-set your repository path-/sparse-tight-binding-TMDCs/resources/idealhoplist/idealhoplist.txt"
 
 #-----------------------------------------------------
 ```
