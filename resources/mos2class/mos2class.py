@@ -15,7 +15,7 @@ from scipy.linalg import svd
 import time
 #-----------------------------------------------------
 #PATHS:
-idealhoppath= "/home/bastian/bachelorarbeit_Projekte/Projekte/reduced_mos2/resources/idealhoplist/idealhoplist.txt"
+idealhoppath= "/home/bastian/sparse-tight-binding-TMDCs/resources/idealhoplist/idealhoplist.txt"
 
 #-----------------------------------------------------
 #Global Variables:
@@ -44,6 +44,23 @@ for line in idealhopfile:
     vec = ast.literal_eval(line)
     idealhoppingslist.append([vec[0],int(vec[1]),int(vec[2]),vec[3]])
 
+
+import os, sys, contextlib
+
+@contextlib.contextmanager
+def suppress_stdout():
+    with open(os.devnull, 'w') as devnull:
+        old_stdout_fd = os.dup(1)
+        old_stderr_fd = os.dup(2)
+        try:
+            os.dup2(devnull.fileno(), 1)
+            os.dup2(devnull.fileno(), 2)
+            yield
+        finally:
+            os.dup2(old_stdout_fd, 1)
+            os.dup2(old_stderr_fd, 2)
+            os.close(old_stdout_fd)
+            os.close(old_stderr_fd)
 
 #-----------------------------------------------------
 #CLASSES:
@@ -163,7 +180,8 @@ class mcell:
             path = k_path_efficient
         else:
             path = k_path
-        klen, bands = self.mprimcell.calc_bands(path,echo_details=False)
+        #klen, bands = self.mprimcell.calc_bands(path,echo_details=False)
+        klen, bands = tb.calc_bands(self.mprimcell,path,echo_details=False)
         return bands
     
     #method for getting the tbplas internal hopping index of a given hop
@@ -342,7 +360,8 @@ def mmetric(cell, comparison_bands, efficient = False, weight_bandgap = 1):
     else:
         path = k_path
 
-    k_len, bands = cell.mprimcell.calc_bands(path,echo_details=False) #line takes about 80% of the total time for an iteration in pca_graddesc.py
+    with suppress_stdout():
+        k_len, bands = tb.calc_bands(cell.mprimcell,path,echo_details=False) #line takes about 80% of the total time for an iteration in pca_graddesc.py
 
     bands_vector=[bands,comparison_bands]
     numbands_vector = [bands_vector[0].shape[1],bands_vector[1].shape[1]]
@@ -375,7 +394,7 @@ def mmaxerroratbandgap(cell, comparison_bands):
 
     #Calculate Bands:
     path = k_path
-    k_len, bands = cell.mprimcell.calc_bands(path,echo_details=False) #line takes about 80% of the total time for an iteration in pca_graddesc.py
+    k_len, bands = tb.calc_bands(cell.mprimcell,path,echo_details=False) #line takes about 80% of the total time for an iteration in pca_graddesc.py
 
     bands_vector=[bands,comparison_bands]
     numbands_vector = [bands_vector[0].shape[1],bands_vector[1].shape[1]]
@@ -410,7 +429,7 @@ def msafebandstructure(mcellvector,filename,title):
     k_len_vector=[]
     bands_vector=[]
     for i in range(n):
-        k_len, bands = cellvector[i].calc_bands(k_path,echo_details=False)
+        k_len, bands = tb.calc_bands(cellvector[i],k_path,echo_details=False)
         k_len_vector.append(k_len)
         bands_vector.append(bands)
 
