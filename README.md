@@ -22,7 +22,7 @@ The full thesis document can be found in this root folder.
 ## Installation
 ### Dependencies
 
-- **tbplas** >= 1.6  
+- **tbplas** >= 2.0  
 TBPLaS (Tight-Binding Package for Large-scale Simulation) is used in this project for tight binding calculations. Follow the [installation guide](https://www.tbplas.net/install.html) to install TBPLaS to your system.
 - **python** ≥ 3.9  
 matplotlib, numpy
