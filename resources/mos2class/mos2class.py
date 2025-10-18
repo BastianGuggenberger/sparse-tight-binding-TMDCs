@@ -13,6 +13,7 @@ from math import exp, sqrt
 import ast
 from scipy.linalg import svd
 import time
+
 #-----------------------------------------------------
 #PATHS:
 idealhoppath= "/home/bastian/sparse-tight-binding-TMDCs/resources/idealhoplist/idealhoplist.txt"
@@ -23,7 +24,7 @@ idealhoppath= "/home/bastian/sparse-tight-binding-TMDCs/resources/idealhoplist/i
 k_points = np.array([
         [0.0, 0.0, 0.0],    # Gamma
         [1./2, 0.0, 0.0],   # M
-        [2./3, 1./3, 0.0],  # K
+        [1./3, 1./3, 0.0],  # K
         [0.0, 0.0, 0.0],    # Gamma
     ])
 
@@ -43,7 +44,7 @@ idealhopfile = open(idealhoppath,"r")
 for line in idealhopfile:
     vec = ast.literal_eval(line)
     idealhoppingslist.append([vec[0],int(vec[1]),int(vec[2]),vec[3]])
-
+idealhopfile.close()
 
 import os, sys, contextlib
 
@@ -361,7 +362,8 @@ def mmetric(cell, comparison_bands, efficient = False, weight_bandgap = 1):
         path = k_path
 
     with suppress_stdout():
-        k_len, bands = tb.calc_bands(cell.mprimcell,path,echo_details=False) #line takes about 80% of the total time for an iteration in pca_graddesc.py
+        k_len, bands = tb.calc_bands(cell.mprimcell, path, echo_details=False)
+        #this takes about 80% of the total time for an iteration in pca_graddesc.py
 
     bands_vector=[bands,comparison_bands]
     numbands_vector = [bands_vector[0].shape[1],bands_vector[1].shape[1]]

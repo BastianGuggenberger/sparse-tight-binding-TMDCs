@@ -19,14 +19,14 @@ elif (pathsettings == "multilevelruns"):
     path_output = "multilevelruns_2.0/formated_results/"
     path_mvsN_output = "multilevelruns_2.0/mvsNanalysis/"
 elif (pathsettings == "customized"):
-    path_runs = "tests/"
-    path_output = "tests/formated_results/"
-    path_mvsN_output = "tests/mvsNanalysis/"
+    path_runs = "highiterations_newk/"
+    path_output = "highiterations_newk/formated_results/"
+    path_mvsN_output = "highiterations_newk/mvsNanalysis/"
 
 path_mvsN_energyorder_file = "../resources/mvsN_energyorder/mvsN_energyorder.txt"
 
 
-IDset = [60000] #IDs of Runs to evaluate
+IDset = [2100+i for i in range(33)]
 E_min = 0.1 #Must be same as in pca_graddesc.py
 
 
@@ -49,6 +49,7 @@ def safe_Nvsm_graph(N_relative,m):
     fromlowetohighEfile = open(path_mvsN_energyorder_file,"r")
     content = []
     for line in fromlowetohighEfile:
+        line = line.replace("np.float64", "")
         content.append(line)
     nvec = ast.literal_eval(content[0])
     metrics = ast.literal_eval(content[1])
@@ -77,6 +78,7 @@ for ID in IDset:
     name = path_runs + "graddesc_finalx_run" + str(ID) + ".txt"
     finalxfile = open(name,"r")
     content = finalxfile.read()
+    content = content.replace("np.float64", "")
     x = ast.literal_eval(content)
 
     #Calculating hopvec:

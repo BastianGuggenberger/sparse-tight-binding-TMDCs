@@ -17,7 +17,7 @@ E_min = 0.1 #Must be same as in pca_graddesc.py
 k_points = np.array([
         [0.0, 0.0, 0.0],    # Gamma
         [1./2, 0.0, 0.0],   # M
-        [2./3, 1./3, 0.0],  # K
+        [1./3, 1./3, 0.0],  # K
         [0.0, 0.0, 0.0],    # Gamma
     ])
 
@@ -64,7 +64,7 @@ colors = [
 def safebandstructure(cell,filename):
     
     #get bands
-    k_len, bands = cell.mprimcell.calc_bands(k_path,echo_details=False)
+    k_len, bands = tb.calc_bands(cell.mprimcell,k_path,echo_details=False)
 
 
     plt.figure(dpi = 200)
@@ -72,14 +72,14 @@ def safebandstructure(cell,filename):
     #Plotting the Bandstructure
     num_bands = bands.shape[1]
     for j in range(num_bands):
-        if(j>9):
+        if(j>12):
             plt.plot(k_len, bands[:, j], color="blue", linewidth="1.0")
-        elif(j<7):
+        elif(j<11):
             plt.plot(k_len, bands[:, j], color="green", linewidth="1.0")
-        elif(j==9):
-            plt.plot(k_len, bands[:, j], color="blue", linewidth="1.0", label = "MoS2 valence bands")
-        elif(j==7):
-            plt.plot(k_len, bands[:, j], color="green", linewidth="1.0", label = "MoS2 conduction bands")
+        elif(j==12):
+            plt.plot(k_len, bands[:, j], color="blue", linewidth="1.0", label = "MoS2 conduction bands")
+        elif(j==11):
+            plt.plot(k_len, bands[:, j], color="green", linewidth="1.0", label = "MoS2 valence bands")
 
     for idx in k_idx:
         plt.axvline(k_len[idx], color='k', linewidth=1.0)

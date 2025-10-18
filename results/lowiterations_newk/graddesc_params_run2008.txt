@@ -1,0 +1,9 @@
+run = 2008
+E_min = 0.1
+lambda_0 = 4.0
+lambda_1 = 5.5
+lambda_2 = 0.05
+kappa = 0.000588235294117647
+deltax = 0.05
+iterations = 400
+gamma = 0.3

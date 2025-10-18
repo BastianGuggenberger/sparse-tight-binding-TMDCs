@@ -29,7 +29,7 @@ plt.plot(minhops,nvec)
 plt.xlabel("Energy E_min in eV")
 plt.ylabel("Remaining Hoppings N / Total Hoppings")
 #plt.title("Hopping Energies of Hopping Terms.")
-plt.savefig("../../results/energyorder_2.0/energyorder_nhoppings_newmos2class.png")
+plt.savefig("../../results/energyorder_newk/energyorder_nhoppings_newmos2class.png")
 #plt.show()
 plt.clf()
 
@@ -63,7 +63,7 @@ plt.ylim(top=3000) #Important!
 plt.xlabel("number N of hoppings / total number of hoppings")
 plt.ylabel("error metric m in eV")
 #plt.title("error metric m for different number of hoppings \n hoppings eliminated in ascending order of energy")
-plt.savefig("../../results/energyorder_2.0/energyorder_Metric_vsN_newmos2class.png")
+plt.savefig("../../results/energyorder_newk/energyorder_Metric_vsN_newmos2class.png")
 #plt.show()
 plt.clf()
 
@@ -103,6 +103,32 @@ plt.plot(minhops, metrics)
 plt.xlabel("E_min")
 plt.ylabel("error metric m in eV")
 #plt.title("Error Metric m for different E_min.")
-plt.savefig("../../results/energyorder_2.0/energyorder_Metric_vsE_newmos2class.png")
+plt.savefig("../../results/energyorder_newk/energyorder_Metric_vsE_newmos2class.png")
 #plt.show()
 plt.clf()
+
+
+#Experimental cell 6:
+cell_6 = mcell("cell_6",0)
+allhops_array, labels = cell_6.mhoppingtable()
+
+#Comparison Cell 7:
+cell_7 = mcell("cell_7",0)
+cell_7_bandss = cell_7.mcalcbands()
+
+
+#Loop:
+minhopa = 0.27
+minhopb = 0.3
+minhops = np.linspace(minhopa,minhopb,50)
+metrics = []
+for minhop in minhops:
+    filtered_array = allhops_array[abs(allhops_array[:,6])>minhop]
+    cell_6.mchangehops_toarr(filtered_array)
+    metrics.append(mmetric(cell_6, cell_7_bandss))
+    print(mmetric(cell_6, cell_7_bandss))
+
+evsmfile = open("Eminvsm.csv",'w+')
+for i in range(len(minhops)):
+    evsmfile.writelines(str(minhops[i])+","+str(metrics[i])+"\n")
+evsmfile.close()

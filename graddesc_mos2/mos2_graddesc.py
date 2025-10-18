@@ -7,30 +7,45 @@
 #Based on tbplas method make_mos2_soc, which is an implementation of:
     # R Roldán et al 2014 2D Mater. 1 034003
     # https://www.tbplas.net/_api/tbplas.make_mos2_soc.html
+import os
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+os.environ.setdefault("MKL_NUM_THREADS", "1")
+os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
+os.environ.setdefault("NUMEXPR_NUM_THREADS", "1")
+
 
 import math
 import numpy as np
 from mos2class import mcell, mmetric, mxtohopvec
 import time
 
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--runid", type=int, required=True, help="ID des Runs")
+parser.add_argument("--lambda_1", type=float, required=True, help="lambda_1")
+parser.add_argument("--resultpath", type=str, required=True, help="resultpath")
+
+args = parser.parse_args()
+
+
 #CONSTANTS:
+lambda_1 = args.lambda_1
+run = args.runid #Increase by 1 for every run !!!! #Declared
+resultpath = args.resultpath #path where the results will be stored
 
-lambda_1vec = [4.0]
-runvec = [61000] #Increase by 1 for every run !!!! #Declared
-resultpath = "../results/tests/" #path where the results will be stored
-
-E_min = 0.1 #Must be same as in results.py
+E_min = 0.27 #Must be same as in results.py
 
 #Weights: Change for different m and N results
 lambda_0 = 4.0 #Weight of the metric term in the EF
 #lambda_1 = 50.0 #Weight of the sqrt term in the EF
 
 #Hyperparameters (keep constant):
-startingx = 1
+startingx = 1.0
 lambda_2 = 0.05 #Weight of the power 6 term in the EF
 kappa = 1/1700 #Speed of Gradient Descent
 deltax = 0.05 #deltax in the partial derivative
-iterations = 20 #Iterations of Gradient descent (e.g. 1200)
+iterations = 1200 #Iterations of Gradient descent (e.g. 1200)
 gamma = 0.3 #Factor gamma in the Nesterov acceleration
 
 
@@ -39,7 +54,7 @@ ideal_cell = mcell("Ideal",E_min)
 idealhops = ideal_cell.mhoppings.copy()
 ideal_bands = ideal_cell.mcalcbands()
 ideal_bands_efficient = ideal_cell.mcalcbands(efficient=True)
-
+ideal_orders = [ideal_cell.mget_neighbours_order(idealhops[i]) for i in range(ideal_cell.mnhoppings)]
 
 #-----------------------------------------------------
 #Functions:
@@ -53,7 +68,6 @@ def EF(x,currentcell):
     H = sum(xi ** 6 for xi in x)
     
     metric = mmetric(currentcell,ideal_bands_efficient,efficient=True)
-    
 
     ef = lambda_0 * metric + lambda_1*N + lambda_2*H
 
@@ -82,7 +96,7 @@ def nesterovgd(run,lambda_1,printinfos=True):
     #File management
     end = str(run) + ".txt"
     historyfile = open(resultpath + "graddesc_history_run"+end, 'w+')
-    xfile = open(resultpath + "graddesc_x_run"+end, 'w+')
+    #xfile = open(resultpath + "graddesc_x_run"+end, 'w+')
     finalxfile = open(resultpath + "graddesc_finalx_run"+end, 'w+')
     paramsfile = open(resultpath + "graddesc_params_run"+end, 'w+')
 
@@ -107,6 +121,7 @@ def nesterovgd(run,lambda_1,printinfos=True):
     orderstotal = currentcell.mget_neighbours_orders()
     orderstotal_sum = sum(orderstotal)
 
+    resultcell = mcell("result",E_min)
     for wdh in range(iterations):
         #start = time.time()
 
@@ -115,7 +130,7 @@ def nesterovgd(run,lambda_1,printinfos=True):
         y = [y[i] + gamma * v[i] for i in range(len(y))]
         
         #2.Step Nesterov: v(t) = gamma*v(t-1) - kappa*d(EF)/dx (x_tilde(t))
-        currenthopvec = mxtohopvec(y,idealhops.copy())
+        currenthopvec = mxtohopvec(y,idealhops)
         currentcell.mchangehops_tohopvec(currenthopvec)
         Efx = EF(y,currentcell)
 
@@ -127,10 +142,9 @@ def nesterovgd(run,lambda_1,printinfos=True):
             x[i] = x[i] + v[i]
 
 
-        resultcell = mcell("result",E_min)
-        resultcell.mchangehops_tohopvec(mxtohopvec(x,idealhops.copy()))
-        N_1 = sum(1 for i in range(len(y)) if ((abs(idealhops[i][3]*y[i]) <= E_min) and (currentcell.mget_neighbours_order(idealhops.copy()[i])==1)))
-        N_2 = sum(1 for i in range(len(y)) if ((abs(idealhops[i][3]*y[i]) <= E_min) and (currentcell.mget_neighbours_order(idealhops.copy()[i])==2)))
+        resultcell.mchangehops_tohopvec(mxtohopvec(x,idealhops))
+        N_1 = sum(1 for i in range(len(y)) if ((abs(idealhops[i][3]*y[i]) <= E_min) and (ideal_orders[i]==1)))
+        N_2 = sum(1 for i in range(len(y)) if ((abs(idealhops[i][3]*y[i]) <= E_min) and (ideal_orders[i]==2)))
         #end = time.time()
 
         #Print iteration results:
@@ -143,18 +157,18 @@ def nesterovgd(run,lambda_1,printinfos=True):
         if(printinfos==True):
             print(string)
         historyfile.writelines(string)
-        xfile.writelines(str(x))
+        #xfile.writelines(str(x))
 
 
     finalxfile.writelines(str(x))
     historyfile.close()
-    xfile.close()
+    #xfile.close()
     finalxfile.close()
 
-runlambdapairs = zip(runvec,lambda_1vec)
-for pair in runlambdapairs:
-    run = pair[0]
-    lambda_1 = pair[1]
-    print("Run " + str(run) + " in progress.")
-    nesterovgd(run,lambda_1,True)
-    print("Run " + str(run) + " done.")
+
+
+print("Run " + str(run) + " in progress.")
+print("lambda_1 = " +str(lambda_1))
+print("resultpath = " +resultpath)
+nesterovgd(run,lambda_1,True)
+print("Run " + str(run) + " done.")

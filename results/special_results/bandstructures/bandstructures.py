@@ -21,7 +21,7 @@ E_min = 0.1 #Must be same as in pca_graddesc.py
 k_points = np.array([
         [0.0, 0.0, 0.0],    # Gamma
         [1./2, 0.0, 0.0],   # M
-        [2./3, 1./3, 0.0],  # K
+        [1./3, 1./3, 0.0],  # K
         [0.0, 0.0, 0.0],    # Gamma
     ])
 

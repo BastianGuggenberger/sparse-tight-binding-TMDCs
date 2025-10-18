@@ -30,19 +30,21 @@ rundescriptions.append("hoppings reduced with Multilevel-NGD, 1200 Iterations")
 runcolors.append("green")
 """
 
+"""
 runpaths.append("../../multilevelruns_2.0/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
 runs.append(range(1200,1232))
 rundescriptions.append("hoppings reduced with separated-orders-NGD, 1200 Iterations")
 runcolors.append("green")
-
 """
-runpaths.append("../../lowiterations_2.0/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
-runs.append(range(1100,1134))
-rundescriptions.append("hoppings reduced with NGD, 400 iterations")
-runcolors.append("grey") """
 
-runpaths.append("../../highiterations_2.0/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
-runs.append(range(1000,1034))
+
+runpaths.append("../../lowiterations_newk/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
+runs.append(range(2000,2033))
+rundescriptions.append("hoppings reduced with NGD, 400 iterations")
+runcolors.append("grey") 
+
+runpaths.append("../../highiterations_newk/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
+runs.append(range(2100,2133))
 rundescriptions.append("hoppings reduced with NGD, 1200 iterations")
 runcolors.append("blue")
 
@@ -95,6 +97,7 @@ for i in range(setsize):
 energyorderfile = open(energyorderpath,"r")
 content = []
 for line in energyorderfile:
+    line = line.replace("np.float64", "")
     content.append(line)
 energyorderfile.close()
 ns = ast.literal_eval(content[0])
@@ -110,7 +113,7 @@ for i, rundescription in enumerate(rundescriptions):
 
 plt.ylim(top=500,bottom=0) #Important!
 plt.xlabel("number N of hoppings / total number of hoppings")
-plt.ylabel("error metric m in eV")
+plt.ylabel("error metric m in (eV)^2")
 plt.legend(
     loc = 'upper center',
     bbox_to_anchor = (0.5,-0.18),
