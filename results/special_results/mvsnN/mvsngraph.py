@@ -3,6 +3,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import ast
+import os
+os.environ["QT_QPA_PLATFORM"] = "xcb"
 
 runpaths = []
 runs = []
@@ -37,16 +39,22 @@ rundescriptions.append("hoppings reduced with separated-orders-NGD, 1200 Iterati
 runcolors.append("green")
 """
 
-
+"""
 runpaths.append("../../lowiterations_newk/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
 runs.append(range(2000,2033))
 rundescriptions.append("hoppings reduced with NGD, 400 iterations")
 runcolors.append("grey") 
+"""
 
 runpaths.append("../../highiterations_newk/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
 runs.append(range(2100,2133))
 rundescriptions.append("hoppings reduced with NGD, 1200 iterations")
 runcolors.append("blue")
+
+runpaths.append("../../combined_highiterations_newk/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
+runs.append(range(2200,2233))
+rundescriptions.append("hoppings reduced with NGD and E_min, 1200 iterations")
+runcolors.append("green")
 
 """
 runpaths.append("../../finalruns/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
@@ -83,6 +91,11 @@ def getnvsm(set):
         Nvec.append(x[0])
         mvec.append(x[1])
 
+    #if the algorithm starts with E_min = 0.27
+    Nvsm.append([0.7222222222222222,16.967173616937696])
+    Nvec.append(0.7222222222222222)
+    mvec.append(16.967173616937696)
+
     #Sorting
     Nvsm = np.array(Nvsm)
     Nvsm = Nvsm[Nvsm[:,0].argsort()]
@@ -102,6 +115,8 @@ for line in energyorderfile:
 energyorderfile.close()
 ns = ast.literal_eval(content[0])
 metrics = ast.literal_eval(content[1])
+
+
 
 #Plotting:
 plt.gca().invert_xaxis()

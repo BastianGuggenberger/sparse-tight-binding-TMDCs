@@ -1,0 +1,900 @@
+optimizing order 1
+n = 0
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=28.05308082983561
+
+optimizing order 1
+n = 1
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=24.0317066180217
+
+optimizing order 1
+n = 2
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=21.396665860527644
+
+optimizing order 1
+n = 3
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=19.498937353148055
+
+optimizing order 1
+n = 4
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=18.310210285626713
+
+optimizing order 1
+n = 5
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=18.447083221698062
+
+optimizing order 1
+n = 6
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=19.120123787653753
+
+optimizing order 1
+n = 7
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=17.86332945330819
+
+optimizing order 1
+n = 8
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=18.561589738848575
+
+optimizing order 1
+n = 9
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=21.121929122475844
+
+optimizing order 1
+n = 10
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=23.854464795333453
+
+optimizing order 1
+n = 11
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=23.380419966827798
+
+optimizing order 1
+n = 12
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=22.097953820833304
+
+optimizing order 1
+n = 13
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=21.68438911800191
+
+optimizing order 1
+n = 14
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=19.94091927939012
+
+optimizing order 1
+n = 15
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=20.511128855126053
+
+optimizing order 1
+n = 16
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=19.513179414524526
+
+optimizing order 1
+n = 17
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=21.01684496492463
+
+optimizing order 1
+n = 18
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=20.933840658835987
+
+optimizing order 1
+n = 19
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=25.075092780075963
+
+optimizing order 1
+n = 20
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=26.71171455598104
+
+optimizing order 1
+n = 21
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=26.486890625116956
+
+optimizing order 1
+n = 22
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=26.020466649830176
+
+optimizing order 1
+n = 23
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=20.732121860321474
+
+optimizing order 1
+n = 24
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=19.966969933564798
+
+optimizing order 1
+n = 25
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=21.24754419119784
+
+optimizing order 1
+n = 26
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=21.680873022032625
+
+optimizing order 1
+n = 27
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=21.644147353321785
+
+optimizing order 1
+n = 28
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=17.347380251393616
+
+optimizing order 1
+n = 29
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=20.077234255454798
+
+optimizing order 1
+n = 30
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=23.41110755086437
+
+optimizing order 1
+n = 31
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=20.273988726581884
+
+optimizing order 1
+n = 32
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=22.518181375040044
+
+optimizing order 1
+n = 33
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=20.838148290384666
+
+optimizing order 1
+n = 34
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=23.208112011333007
+
+optimizing order 1
+n = 35
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=27.737033934242994
+
+optimizing order 1
+n = 36
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=19.9113719878367
+
+optimizing order 1
+n = 37
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=20.88826773364872
+
+optimizing order 1
+n = 38
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=21.624664889233063
+
+optimizing order 1
+n = 39
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=21.17695833377067
+
+optimizing order 1
+n = 40
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=20.249446649137074
+
+optimizing order 1
+n = 41
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=21.26846038761704
+
+optimizing order 1
+n = 42
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=20.937030671793483
+
+optimizing order 1
+n = 43
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=26.375307436520213
+
+optimizing order 1
+n = 44
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=23.59221174853633
+
+optimizing order 1
+n = 45
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=23.569806158043974
+
+optimizing order 1
+n = 46
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=21.17446548482001
+
+optimizing order 1
+n = 47
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=16.50401975148661
+
+optimizing order 1
+n = 48
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=23.84119000550012
+
+optimizing order 1
+n = 49
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=21.847084099544322
+
+optimizing order 1
+n = 50
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=19.153800376674305
+
+optimizing order 1
+n = 51
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=24.85102706528753
+
+optimizing order 1
+n = 52
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=17.618668178108116
+
+optimizing order 1
+n = 53
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=15.434806177325251
+
+optimizing order 1
+n = 54
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=24.50451145327284
+
+optimizing order 1
+n = 55
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=24.044399279694154
+
+optimizing order 1
+n = 56
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=26.23800343164689
+
+optimizing order 1
+n = 57
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=21.792708419279137
+
+optimizing order 1
+n = 58
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=24.28652764708514
+
+optimizing order 1
+n = 59
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=18.227143568204017
+
+optimizing order 1
+n = 60
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=23.35565663592736
+
+optimizing order 1
+n = 61
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=18.36219611485615
+
+optimizing order 1
+n = 62
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=23.10362019479497
+
+optimizing order 1
+n = 63
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=20.23384732536236
+
+optimizing order 1
+n = 64
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=18.369941746981635
+
+optimizing order 1
+n = 65
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=16.359261998363113
+
+optimizing order 1
+n = 66
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=18.28118363613581
+
+optimizing order 1
+n = 67
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=16.267124011907097
+
+optimizing order 1
+n = 68
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=19.361625640980076
+
+optimizing order 1
+n = 69
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=17.613214487920487
+
+optimizing order 1
+n = 70
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=18.579023568588262
+
+optimizing order 1
+n = 71
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=18.002470331270324
+
+optimizing order 1
+n = 72
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=16.07065729876437
+
+optimizing order 1
+n = 73
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=17.493479521040403
+
+optimizing order 1
+n = 74
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=16.130531889675996
+
+optimizing order 1
+n = 75
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=15.669597899092414
+
+optimizing order 1
+n = 76
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=23.186160938957034
+
+optimizing order 1
+n = 77
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=23.792014376062205
+
+optimizing order 1
+n = 78
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=20.480465800084016
+
+optimizing order 1
+n = 79
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=19.613311106731267
+
+optimizing order 1
+n = 80
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=18.379523842549762
+
+optimizing order 1
+n = 81
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=19.928042510636224
+
+optimizing order 1
+n = 82
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=16.884257050200507
+
+optimizing order 1
+n = 83
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=24.264693082392174
+
+optimizing order 1
+n = 84
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=17.521142628487482
+
+optimizing order 1
+n = 85
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=29.46381696203698
+
+optimizing order 1
+n = 86
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=22.12383315208253
+
+optimizing order 1
+n = 87
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=22.06354448435209
+
+optimizing order 1
+n = 88
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=20.09030662836982
+
+optimizing order 1
+n = 89
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=18.63237665353287
+
+optimizing order 1
+n = 90
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=17.563344992783644
+
+optimizing order 1
+n = 91
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=16.80148176291816
+
+optimizing order 1
+n = 92
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=17.18409392775933
+
+optimizing order 1
+n = 93
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=15.694570401406535
+
+optimizing order 1
+n = 94
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=19.599979706973627
+
+optimizing order 1
+n = 95
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=19.007946869450166
+
+optimizing order 1
+n = 96
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=17.61349519331824
+
+optimizing order 1
+n = 97
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=16.133921608098948
+
+optimizing order 1
+n = 98
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=18.26151375207605
+
+optimizing order 1
+n = 99
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=17.252389596860535
+
+optimizing order 1
+n = 100
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=18.533057575960747
+
+optimizing order 1
+n = 101
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=18.357569404926338
+
+optimizing order 1
+n = 102
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=16.11245517281811
+
+optimizing order 1
+n = 103
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=17.0860234791532
+
+optimizing order 1
+n = 104
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=18.89303462564224
+
+optimizing order 1
+n = 105
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=16.755827389230685
+
+optimizing order 1
+n = 106
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=15.051113655507052
+
+optimizing order 1
+n = 107
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=22.430784210106307
+
+optimizing order 1
+n = 108
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=25.698623674012197
+
+optimizing order 1
+n = 109
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=21.205016286438
+
+optimizing order 1
+n = 110
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=21.465832674471667
+
+optimizing order 1
+n = 111
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=16.691092662709934
+
+optimizing order 1
+n = 112
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=14.40276595057342
+
+optimizing order 1
+n = 113
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=16.150512776775262
+
+optimizing order 1
+n = 114
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=16.651443782475173
+
+optimizing order 1
+n = 115
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=18.226580749970406
+
+optimizing order 1
+n = 116
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=13.47147630983183
+
+optimizing order 1
+n = 117
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=23.111551892316406
+
+optimizing order 1
+n = 118
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=20.293815126893065
+
+optimizing order 1
+n = 119
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=17.006557371522465
+
+optimizing order 1
+n = 120
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=15.506612122161254
+
+optimizing order 1
+n = 121
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=15.602280014490113
+
+optimizing order 1
+n = 122
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=16.572736048339735
+
+optimizing order 1
+n = 123
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=15.0397596708011
+
+optimizing order 1
+n = 124
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=13.997208459143947
+
+optimizing order 1
+n = 125
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=16.191364670679985
+
+optimizing order 1
+n = 126
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=15.963365506603584
+
+optimizing order 1
+n = 127
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=14.565532112607453
+
+optimizing order 1
+n = 128
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=15.272562466252522
+
+optimizing order 1
+n = 129
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=16.07371700585404
+
+optimizing order 1
+n = 130
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=14.270659858506958
+
+optimizing order 1
+n = 131
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=20.37978066248743
+
+optimizing order 1
+n = 132
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=14.244770189998574
+
+optimizing order 1
+n = 133
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=21.64563946021443
+
+optimizing order 1
+n = 134
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=20.632782485147878
+
+optimizing order 1
+n = 135
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=22.051256994982825
+
+optimizing order 1
+n = 136
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=19.71626323479528
+
+optimizing order 1
+n = 137
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=19.139772768641006
+
+optimizing order 1
+n = 138
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=16.342993292192556
+
+optimizing order 1
+n = 139
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=15.957893855933659
+
+optimizing order 1
+n = 140
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=18.65541523061582
+
+optimizing order 1
+n = 141
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=17.701917374885507
+
+optimizing order 1
+n = 142
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=17.27975455036292
+
+optimizing order 1
+n = 143
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=15.781064276625326
+
+optimizing order 1
+n = 144
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=17.42803141954482
+
+optimizing order 1
+n = 145
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=14.936372360167546
+
+optimizing order 1
+n = 146
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=17.69550656747627
+
+optimizing order 1
+n = 147
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=16.146850575322222
+
+optimizing order 1
+n = 148
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=25.094876600089865
+
+optimizing order 1
+n = 149
+N(x_i(1) ~ 0) = 52 / 152
+N(x_i(2) ~ 0) = 22 / 94
+metric=19.247645943387763
+

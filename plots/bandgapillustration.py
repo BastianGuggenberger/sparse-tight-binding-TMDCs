@@ -72,13 +72,13 @@ def safebandstructure(cell,filename):
     #Plotting the Bandstructure
     num_bands = bands.shape[1]
     for j in range(num_bands):
-        if(j>12):
+        if(j>=15):
             plt.plot(k_len, bands[:, j], color="blue", linewidth="1.0")
-        elif(j<11):
+        elif(j<=14):
             plt.plot(k_len, bands[:, j], color="green", linewidth="1.0")
-        elif(j==12):
+        elif(j==15):
             plt.plot(k_len, bands[:, j], color="blue", linewidth="1.0", label = "MoS2 conduction bands")
-        elif(j==11):
+        elif(j==14):
             plt.plot(k_len, bands[:, j], color="green", linewidth="1.0", label = "MoS2 valence bands")
 
     for idx in k_idx:
