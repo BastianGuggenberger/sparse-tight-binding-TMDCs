@@ -19,14 +19,14 @@ elif (pathsettings == "multilevelruns"):
     path_output = "multilevelruns_2.0/formated_results/"
     path_mvsN_output = "multilevelruns_2.0/mvsNanalysis/"
 elif (pathsettings == "customized"):
-    path_runs = "combined_highiterations_newk/"
-    path_output = "combined_highiterations_newk/formated_results/"
-    path_mvsN_output = "combined_highiterations_newk/mvsNanalysis/"
+    path_runs = "bandgapruns_newk/"
+    path_output = "bandgapruns_newk/formated_results/"
+    path_mvsN_output = "bandgapruns_newk/mvsNanalysis/"
 
 path_mvsN_energyorder_file = "../resources/mvsN_energyorder/mvsN_energyorder.txt"
 
 
-IDset = [2300+i for i in range(33)]
+IDset = [2400+i for i in range(33)]
 E_min = 0.1 #Must be same as in pca_graddesc.py
 E_cutoff = 0.1 #cutoff after gradient descent
 

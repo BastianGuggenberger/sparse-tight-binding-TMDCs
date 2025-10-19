@@ -45,7 +45,7 @@ startingx = 1
 lambda_2 = 0.05 #Weight of the power 6 term in the EF
 kappa = 1/1700 #Speed of Gradient Descent
 deltax = 0.05 #deltax in the partial derivative
-iterations = 20 #Iterations of Gradient descent
+iterations = 1200 #Iterations of Gradient descent
 gamma = 0.3 #Factor gamma in the Nesterov acceleration
 
 

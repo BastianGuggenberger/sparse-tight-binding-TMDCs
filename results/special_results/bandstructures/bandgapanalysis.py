@@ -8,8 +8,8 @@ import ast
 #-----------------------------------------------------
 #VARIABLES (IMPORTANT):
 #-----------------------------------------------------
-path_runs = "../../bandgapruns_2.0/"
-ID = 1309
+path_runs = "../../bandgapruns_newk/"
+ID = 2413
 E_min = 0.1
 
 #-----------------------------------------------------
@@ -25,6 +25,7 @@ ideal_bands = ideal_cell.mcalcbands()
 name = path_runs + "graddesc_finalx_run" + str(ID) + ".txt"
 finalxfile = open(name,"r")
 content = finalxfile.read()
+content = content.replace("np.float64", "")
 x = ast.literal_eval(content)
 
 #Calculating hopvec:

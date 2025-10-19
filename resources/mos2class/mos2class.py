@@ -34,7 +34,7 @@ k_label = ["G", "M", "K", "G"]
 
 dset = [0.0, 0.24, 0.32]
 
-colors = ["red", "black", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffff33", "#a65628"]
+colors = [ "black", "red", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffff33", "#a65628"]
 
 #idealhoppingslist: list of all hoppings in R Roldán et al paper.
 #list is built with hoplistbuiler.py
@@ -482,3 +482,33 @@ def mxtohopvec(x,idealhops):
             energy *= x[i]
             hopvec.append([rn,orb_i,orb_j,energy])
     return hopvec
+
+def mtotalerrorperkpoint(cell, comparison_bands):
+
+    k_len, bands = tb.calc_bands(cell.mprimcell, k_path,echo_details=False) #line takes about 80% of the total time for an iteration in pca_graddesc.py
+
+    bands_vector=[bands,comparison_bands]
+    numbands_vector = [bands_vector[0].shape[1],bands_vector[1].shape[1]]
+
+    if(bands_vector[0].shape[0]!=bands_vector[1].shape[0]):
+        print("Metric Error: Different number of k-Points")
+        return 0
+    if(numbands_vector[0]!=numbands_vector[1]):
+        print("Metric Error: Different number of bands")
+        return 0
+    
+
+    #Error calculation:
+    error = 0
+    n = 0
+    for i in range(numbands_vector[0]):
+        for j in range(bands_vector[0].shape[0]):
+            E_cell = bands_vector[0][j,i]
+            E_comparison = bands_vector[1][j,i]
+            currenterror = abs(E_cell-E_comparison)
+            error += currenterror
+            n+=1
+
+    totalerrorperkpoint = error/float(n)
+    print(float(n))
+    return totalerrorperkpoint

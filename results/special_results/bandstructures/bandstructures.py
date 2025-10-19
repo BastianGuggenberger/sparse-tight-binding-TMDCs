@@ -9,10 +9,10 @@ import ast
 #-----------------------------------------------------
 #VARIABLES (IMPORTANT):
 
-path_runs = "../../highiterations_2.0/"
+path_runs = "../../highiterations_newk/"
 path_output = "../../importantresults/"
 
-ID = 1007 #IDs of Runs to evaluate
+ID = 2111 #IDs of Runs to evaluate
 E_min = 0.1 #Must be same as in pca_graddesc.py
 
 
@@ -56,7 +56,7 @@ def safebandstructure(mcellvector,filename):
     k_len_vector=[]
     bands_vector=[]
     for i in range(n):
-        k_len, bands = cellvector[i].calc_bands(k_path,echo_details=False)
+        k_len, bands = tb.calc_bands(cellvector[i],k_path,echo_details=False)
         k_len_vector.append(k_len)
         bands_vector.append(bands)
 
@@ -97,6 +97,7 @@ def safebandstructure(mcellvector,filename):
 name = path_runs + "graddesc_finalx_run" + str(ID) + ".txt"
 finalxfile = open(name,"r")
 content = finalxfile.read()
+content = content.replace("np.float64", "")
 x = ast.literal_eval(content)
 
 #Calculating hopvec:

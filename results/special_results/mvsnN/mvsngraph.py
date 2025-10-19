@@ -32,18 +32,18 @@ rundescriptions.append("hoppings reduced with Multilevel-NGD, 1200 Iterations")
 runcolors.append("green")
 """
 
-"""
-runpaths.append("../../multilevelruns_2.0/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
-runs.append(range(1200,1232))
+
+runpaths.append("../../multilevelruns_newk/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
+runs.append(range(2300,2333))
 rundescriptions.append("hoppings reduced with separated-orders-NGD, 1200 Iterations")
 runcolors.append("green")
-"""
+
 
 """
 runpaths.append("../../lowiterations_newk/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
 runs.append(range(2000,2033))
-rundescriptions.append("hoppings reduced with NGD, 400 iterations")
-runcolors.append("grey") 
+rundescriptions.append("hoppings reduced with NGD, weight on bandgap region")
+runcolors.append("green") 
 """
 
 runpaths.append("../../highiterations_newk/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
@@ -51,10 +51,6 @@ runs.append(range(2100,2133))
 rundescriptions.append("hoppings reduced with NGD, 1200 iterations")
 runcolors.append("blue")
 
-runpaths.append("../../combined_highiterations_newk/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
-runs.append(range(2200,2233))
-rundescriptions.append("hoppings reduced with NGD and E_min, 1200 iterations")
-runcolors.append("green")
 
 """
 runpaths.append("../../finalruns/mvsNanalysis/")#runspath: path were mvsN_run___.txt files are stored
@@ -92,9 +88,9 @@ def getnvsm(set):
         mvec.append(x[1])
 
     #if the algorithm starts with E_min = 0.27
-    Nvsm.append([0.7222222222222222,16.967173616937696])
-    Nvec.append(0.7222222222222222)
-    mvec.append(16.967173616937696)
+    #Nvsm.append([0.7222222222222222,16.967173616937696])
+    #Nvec.append(0.7222222222222222)
+    #mvec.append(16.967173616937696)
 
     #Sorting
     Nvsm = np.array(Nvsm)

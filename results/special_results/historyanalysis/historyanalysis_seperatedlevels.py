@@ -5,9 +5,9 @@ import numpy as np
 
 #-----------------------------------------------------
 #VARIABLES (IMPORTANT):
-path_runs = "../../highiterations_2.0/"
+path_runs = "../../highiterations_newk/"
 path_output = "../../importantresults/"
-ID = 1007 #ID of Run to evaluate
+ID = 2111 #ID of Run to evaluate
 
 #-----------------------------------------------------
 

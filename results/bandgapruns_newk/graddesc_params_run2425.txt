@@ -6,5 +6,5 @@ lambda_1 = 16.0
 lambda_2 = 0.05
 kappa = 0.000588235294117647
 deltax = 0.05
-iterations = 20
+iterations = 1200
 gamma = 0.3
