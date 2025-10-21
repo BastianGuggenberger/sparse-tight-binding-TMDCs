@@ -1,7 +1,7 @@
 # Sparse-Tight-Binding for TMDCs: Parameter Reduction through Gradient-based Optimization
 <div align="center">
   <br>
-  <img src="results/importantresults/graddesc_bands_run1007.png" alt="Header" width="500" />
+  <img src="results/importantresults/graddesc_bands_run2111.png" alt="Header" width="500" />
   <br>
   <em>Bandstructure of the reduced model vs original model</em>
   <br>
